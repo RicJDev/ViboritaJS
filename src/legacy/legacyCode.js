@@ -1,10 +1,10 @@
-// Board's dimensions.
+// Dimensiones del tablero.
 
 const BOARD_HEIGHT = 30
 const BOARD_WIDTH = 30
 const BLOCK_SIZE = 15
 
-// Board generation.
+// Generación del tablero.
 
 const BOARD = new Array(BOARD_HEIGHT)
 
@@ -12,7 +12,7 @@ for (let i = 0; i < BOARD.length; i++) {
   BOARD[i] = new Array(BOARD_WIDTH).fill(0)
 }
 
-// Html elements.
+// Elementos HTML.
 
 /**@type {HTMLHeadingElement} */
 const pointsRecord = document.querySelector('.record-points')
@@ -25,7 +25,7 @@ canvas.width = BOARD_WIDTH * BLOCK_SIZE
 
 context.scale(BLOCK_SIZE, BLOCK_SIZE)
 
-// Snake object.
+// Objeto snake, que representa a nuestra serpiente.
 
 /**@typedef {'up' | 'down' | 'right' | 'left'} direction */
 
@@ -38,7 +38,7 @@ const snake = {
   tailSize: 2,
 }
 
-// Teleports the snake's segment if goes out the limits.
+// Función para teletransportar a la serpiente si se sale de los límites del tablero.
 
 function teleportSegment(index) {
   const segment = snake.body[index]
@@ -50,7 +50,7 @@ function teleportSegment(index) {
   if (segment.x >= BOARD[0].length) segment.x = 0
 }
 
-// Moves the snake according to its direction.
+// Sistema de movimiento. Cambia según la dirección de la serpiente.
 
 const SEGMENT_MOVEMENTS = {
   up: (index) => snake.body[index].y--,
@@ -84,7 +84,7 @@ function moveSnake() {
   BOARD[snake.body[0].y][snake.body[0].x] = 1
 }
 
-// Random apple's generation system.
+// Sistema para generar una manzana aleatoria. Incluye la primera versión de un sitema básico de puntos.
 
 let points = 0
 
@@ -115,7 +115,7 @@ function checkApple() {
   }
 }
 
-// Adding controls (unable to move the opposite direction).
+// Añadiendo controles. Se hicieron de manera que el jugador no pueda moverse en la dirección opuesta a la que lleva.
 
 const EVENT_MOVEMENTS = {
   UP: ['ArrowUp', 'w'],
@@ -144,7 +144,7 @@ function controls(event) {
 
 document.addEventListener('keydown', controls)
 
-// Drawing elements.
+// Dibujado de elementos en el canvas.
 
 function draw() {
   moveSnake()
