@@ -3,23 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snake JS</title>
+    <title>Snake Game</title>
 
     <style>
       body {
-        background: #333;
+        background: #222;
       }
 
-      .record-points {
+      h3 {
         color: #eee;
+      }
+
+      .game-area {
+        margin-top: 5rem;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      canvas {
+        margin: auto;
+        background: #eee;
       }
     </style>
   </head>
   <body>
+    <div class="game-area">
+      <h3 class="record-points">Points: 0</h3>
 
-    <h3 class="record-points">Points: 0</h3>
-    <canvas></canvas>
+      <canvas></canvas>
 
-    <script type="module" src="legacy/legacyCode.js"></script>
+      <script type="module" src="./legacy/main.js"></script>
+    </div>
   </body>
 </html>
