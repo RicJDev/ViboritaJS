@@ -1,12 +1,8 @@
-/**@typedef {'up' | 'down' | 'left' | 'right'} direction */
-
 class Snake {
   body = [{ x: 1, y: 1 }]
-
-  /**@type {direction} */
   direction = 'right'
   size = 2
-  // speed = 1
+  speed = 1
 
   movements = {
     up: () => this.body[0].y--,
@@ -23,6 +19,11 @@ class Snake {
 
     const moveHead = this.movements[this.direction]
     moveHead()
+  }
+
+  eat(apple) {
+    this.size++
+    apple.isGeneretable = false
   }
 }
 
