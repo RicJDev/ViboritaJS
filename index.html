@@ -3,35 +3,93 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snake JS</title>
+    <title>Snake Game</title>
 
     <style>
       body {
+        margin: 0;
         background: #222;
+        color: #eee;
+        font-family: 'Courier New', Courier, monospace;
       }
 
-      h3 {
-        color: #eee;
+      h2 {
+        margin: auto;
+        width: 50%;
+      }
+
+      .container {
+        height: 92vh;
+        margin-top: 5vh;
+        display: grid;
+        background: #232;
+        grid-template-columns: 10% 90%;
+      }
+
+      .activity-bar {
+        box-sizing: border-box;
+        height: 100%;
+        padding: 2%;
+        background: #111;
+        text-align: center;
       }
 
       .game-area {
-        margin-top: 5rem;
+        height: 90%;
+        padding: 2%;
+        margin: auto;
         display: flex;
         flex-direction: column;
         text-align: center;
+        border-radius: 20px;
+
+        background-color: #111;
+      }
+
+      .status-bar {
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+      }
+
+      .record-points,
+      .current-level {
+        margin: auto;
+        flex-direction: row;
+        width: 24%;
+        padding: 1%;
+        background: #111;
       }
 
       canvas {
         margin: auto;
-        background: #eee;
+        border: 1px solid #efe;
+      }
+
+      button {
+        margin: auto;
       }
     </style>
+
+    <script type="module" src="./main.js"></script>
   </head>
   <body>
-    <div class="game-area">
-      <h3 class="record-points">Points: 0</h3>
+    <div class="container">
+      <div class="activity-bar">
+        <button>Hola</button>
+      </div>
+      <div class="game-area">
+        <h2>Viborita JS</h2>
 
-      <canvas></canvas>
+        <p>A comer manzanas!</p>
+
+        <canvas></canvas>
+
+        <div class="status-bar">
+          <h3 class="record-points">Points: 0</h3>
+          <h3 class="current-level">Level: 0</h3>
+        </div>
+      </div>
     </div>
   </body>
 </html>
