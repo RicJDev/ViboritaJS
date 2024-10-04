@@ -7,14 +7,10 @@ const BLOCK_SIZE = 12
 // Generación del tablero.
 
 const BOARD = new Array(BOARD_HEIGHT)
-
-for (let i = 0; i < BOARD.length; i++) {
-  BOARD[i] = new Array(BOARD_WIDTH).fill(0)
-}
+for (let i = 0; i < BOARD.length; i++) BOARD[i] = new Array(BOARD_WIDTH).fill(0)
 
 // Elementos HTML.
 
-/**@type {HTMLHeadingElement} */
 const pointsRecord = document.querySelector('.record-points')
 
 const canvas = document.querySelector('canvas')
@@ -26,16 +22,13 @@ canvas.width = BOARD_WIDTH * BLOCK_SIZE
 context.scale(BLOCK_SIZE, BLOCK_SIZE)
 
 const gameOverSoundEffect = new Audio('./assets/277403__landlucky__game-over-sfx-and-voice.wav')
-gameOverSoundEffect.preload = "auto"
+gameOverSoundEffect.preload = 'auto'
 
 // Objeto snake, que representa a nuestra serpiente.
-
-/**@typedef {'up' | 'down' | 'right' | 'left' | 'none'} direction */
 
 const snake = {
   body: [{ x: 1, y: 1 }],
 
-  /**@type {direction} */
   direction: 'right',
 
   tailSize: 2,
