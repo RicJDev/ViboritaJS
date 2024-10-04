@@ -4,13 +4,7 @@ Un juego simple tipo Snake. Inspirado en un jueguito de MsDOS, fue desarrollado 
 
 ## ¿Cómo surgió este proyecto?
 
-<div align="center">
-
-<video width="320" height="240" controls>
-  <source src="images/old_demo.mp4" type="video/mp4">
-</video>
-
-</div>
+![primera demo](./images/old_demo.mp4)
 
 Estaba yo practicando mi lógica con un mini juego del cuál grabé una _"demo"_ (nótense las comillas) y de alguna manera terminó convirtiéndose en una idea más grande... o al menos, más completa.
 
