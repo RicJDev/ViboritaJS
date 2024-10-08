@@ -1,6 +1,5 @@
-[!] Importante.
-
-Para realizar los test se ha instalado Jest, la librería de testing mantenida por Facebook.
+> [!NOTE]
+> Para realizar los test se ha instalado Jest, la librería de testing mantenida por Facebook.
 
 ```bash
 npm i jest -D
