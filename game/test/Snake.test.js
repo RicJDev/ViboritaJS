@@ -1,4 +1,4 @@
-import { Snake } from '../classes/Snake.js'
+import { Snake } from '../src/components/Snake.js'
 
 test('Prueba de movimiento hacia arriba', () => {
   const frank = new Snake()
