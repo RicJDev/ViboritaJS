@@ -21,7 +21,7 @@ canvas.width = BOARD_WIDTH * BLOCK_SIZE
 
 context.scale(BLOCK_SIZE, BLOCK_SIZE)
 
-const gameOverSoundEffect = new Audio('./assets/277403__landlucky__game-over-sfx-and-voice.wav')
+const gameOverSoundEffect = new window.Audio('./src/assets/sounds/277403__landlucky__game-over-sfx-and-voice.wav')
 gameOverSoundEffect.preload = 'auto'
 
 // Objeto snake, que representa a nuestra serpiente.
@@ -169,7 +169,7 @@ function draw() {
   checkApple()
 
   const colors = {
-    0: '#001009',
+    0: '#001010',
     [snake.values[0]]: '#2a8',
     [snake.values[1]]: '#cc91',
     [snake.values[2]]: '#3d92',
