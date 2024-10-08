@@ -5,7 +5,7 @@
 npm i jest -D
 ```
 
-Debido a que Jest no tiene un soporte completo para EcmaScriptModules, en el package.json se ha indicado el script de test de la siguiente manera:
+Debido a que Jest no tiene el mismo soporte para EcmaScript modules que para los modulos commonJs, en el package.json se ha indicado el script de test de la siguiente manera:
 
 ```json
 {
@@ -15,7 +15,7 @@ Debido a que Jest no tiene un soporte completo para EcmaScriptModules, en el pac
 }
 ```
 
-Y para ejecutar los test, debe ejecutar este comando:
+Y para ejecutar los test, use este comando:
 
 ```bash
 npm test

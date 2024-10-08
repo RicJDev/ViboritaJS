@@ -1,8 +1,10 @@
 # Viborita.js
 
-Un juego simple tipo Snake. Inspirado en un jueguito de MsDOS, fue desarrollado con JavaSript sin dependencias 🤘
+Un juego simple tipo Snake. Inspirado en un jueguito de MsDOS, fue desarrollado con JavaSript sin usar dependencias 🤘
 
 ## ¿Cómo surgió este proyecto?
+
+![Video de la primera demo](./images/snake_first_demo.gif)
 
 Estaba yo practicando mi lógica con un mini juego del cuál grabé una _"demo"_ (nótense las comillas) y de alguna manera terminó convirtiéndose en una idea más grande... o al menos, más completa.
 
