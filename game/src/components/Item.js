@@ -5,6 +5,8 @@ function defaultCallback(x, y) {
   return { x, y }
 }
 
+// Un item es un alimento que provoca que la serpiente crezca.
+
 class Item {
   position = { x: 10, y: 20 }
   isGeneretable = true

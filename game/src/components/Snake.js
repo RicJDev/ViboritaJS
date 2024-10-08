@@ -1,3 +1,4 @@
+// Clase que representa a la serpiente que es controlada por el jugador.
 class Snake {
   body = [{ x: 1, y: 1 }]
   size = 2
