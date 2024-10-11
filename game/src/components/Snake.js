@@ -1,4 +1,7 @@
 // Clase que representa a la serpiente que es controlada por el jugador.
+
+import { MOVEMENTS } from './Movements.js'
+
 class Snake {
   body = [{ x: 1, y: 1 }]
   size = 2
@@ -7,13 +10,8 @@ class Snake {
   gridValue = 1
 
   direction = 'right'
-  movements = {
-    up: () => this.body[0].y--,
-    down: () => this.body[0].y++,
-    left: () => this.body[0].x--,
-    right: () => this.body[0].x++,
-    none: () => {},
-  }
+
+  movements = MOVEMENTS
 
   move() {
     this.body.length = this.size + 2
@@ -22,7 +20,7 @@ class Snake {
     for (let i = voidIndex; i > 0; i--) this.body[i] = { ...this.body[i - 1] }
 
     const moveHead = this.movements[this.direction] || this.movements.right
-    moveHead()
+    moveHead(this.body[0])
   }
 }
 

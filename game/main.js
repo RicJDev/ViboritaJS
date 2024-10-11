@@ -21,7 +21,9 @@ canvas.width = BOARD_WIDTH * BLOCK_SIZE
 
 context.scale(BLOCK_SIZE, BLOCK_SIZE)
 
-const gameOverSoundEffect = new window.Audio('./src/assets/sounds/277403__landlucky__game-over-sfx-and-voice.wav')
+const gameOverSoundEffect = new window.Audio(
+  './src/assets/sounds/277403__landlucky__game-over-sfx-and-voice.wav'
+)
 gameOverSoundEffect.preload = 'auto'
 
 // Objeto snake, que representa a nuestra serpiente.
@@ -102,31 +104,30 @@ function checkColisions() {
 
 // Sistema para generar una manzana aleatoria. Incluye la primera versión de un sitema básico de puntos.
 
+import { Item } from './src/components/Item.js'
+
 let points = 0
 
-const apple = {
-  position: { y: 20, x: 10 },
-  isGeneratable: true,
-  value: 10,
-}
+const apple = new Item()
 
-function generateApple() {
-  while (BOARD[apple.position.y][apple.position.x] !== 0) {
-    apple.position.x = Math.floor(Math.random() * BOARD.length)
-    apple.position.y = Math.floor(Math.random() * BOARD[0].length)
+/**@param {Item} item */
+function checkItem(item) {
+  if (item.isGeneretable) {
+    item.generate((x, y) => {
+      while (BOARD[y][x] !== 0) {
+        x = Math.floor(Math.random() * BOARD.length)
+        y = Math.floor(Math.random() * BOARD[0].length)
+      }
+
+      BOARD[y][x] = item.gridValue
+
+      return { x, y }
+    })
   }
 
-  BOARD[apple.position.y][apple.position.x] = 10
-}
+  if (BOARD[item.position.y][item.position.x] !== item.gridValue) {
+    item.isGeneretable = true
 
-function checkApple() {
-  if (apple.isGeneratable) {
-    generateApple()
-    apple.isGeneratable = false
-  }
-
-  if (BOARD[apple.position.y][apple.position.x] !== 10) {
-    apple.isGeneratable = true
     points++
     snake.tailSize++
   }
@@ -166,7 +167,7 @@ document.addEventListener('keydown', controls)
 function draw() {
   moveSnake()
 
-  checkApple()
+  checkItem(apple)
 
   const colors = {
     0: '#001010',
@@ -174,7 +175,7 @@ function draw() {
     [snake.values[1]]: '#cc91',
     [snake.values[2]]: '#3d92',
     [snake.values[3]]: '#3d91',
-    [apple.value]: '#970',
+    [apple.gridValue]: apple.color,
   }
 
   BOARD.forEach((row, y) => {
