@@ -1,3 +1,5 @@
+/* Creando matriz del tablero */
+
 // Dimensiones del tablero.
 
 const BOARD_HEIGHT = 30
@@ -9,39 +11,44 @@ const BLOCK_SIZE = 12
 const BOARD = new Array(BOARD_HEIGHT)
 for (let i = 0; i < BOARD.length; i++) BOARD[i] = new Array(BOARD_WIDTH).fill(0)
 
-// Elementos HTML.
+/* Elementos HTML */
 
-const pointsRecord = document.querySelector('.record-points')
+// Canvas y su contexto
 
 const canvas = document.querySelector('canvas')
-const context = canvas.getContext('2d')
 
 canvas.height = BOARD_HEIGHT * BLOCK_SIZE
 canvas.width = BOARD_WIDTH * BLOCK_SIZE
 
+const context = canvas.getContext('2d')
 context.scale(BLOCK_SIZE, BLOCK_SIZE)
 
-const gameOverSoundEffect = new window.Audio(
-  './src/assets/sounds/277403__landlucky__game-over-sfx-and-voice.wav'
-)
-gameOverSoundEffect.preload = 'auto'
+// Puntaje y nivel actual
 
-// Objeto snake, que representa a nuestra serpiente.
+let points = 0
+let level = 1
+
+const recordPoints = document.querySelector('.record-points')
+const currentLevel = document.querySelector('.current-level')
+
+currentLevel.innerHTML = `Nivel: ${level}`
+
+/* La serpiente */
 
 const snake = {
   body: [{ x: 1, y: 1 }],
+  tailSize: 2,
 
   direction: 'right',
 
-  tailSize: 2,
-
-  values: [1, 2, 3, 4],
+  color: '#60a0bf',
+  gridValue: 1,
 }
 
 // Función para teletransportar a la serpiente si se sale de los límites del tablero.
 
-function teleportSegment(index) {
-  const segment = snake.body[index]
+function teleportSnakeHead() {
+  const segment = snake.body[0]
 
   if (segment.y < 0) segment.y = BOARD.length - 1
   if (segment.y >= BOARD.length) segment.y = 0
@@ -53,13 +60,11 @@ function teleportSegment(index) {
 // Sistema de movimiento. Cambia según la dirección de la serpiente.
 
 const SEGMENT_MOVEMENTS = {
-  up: (index) => snake.body[index].y--,
-  down: (index) => snake.body[index].y++,
-  left: (index) => snake.body[index].x--,
-  right: (index) => snake.body[index].x++,
-  none: (index) => {
-    snake.body[index] = snake.body[index]
-  },
+  up: () => snake.body[0].y--,
+  down: () => snake.body[0].y++,
+  left: () => snake.body[0].x--,
+  right: () => snake.body[0].x++,
+  none: () => {},
 }
 
 function moveSnake() {
@@ -74,66 +79,69 @@ function moveSnake() {
 
     const { x, y } = snake.body[i]
 
-    if ((x !== undefined) & (y !== undefined)) BOARD[y][x] = snake.values[1]
-    if (i > 12) BOARD[y][x] = snake.values[2]
-    if (i > 16) BOARD[y][x] = snake.values[3]
+    if ((x !== undefined) & (y !== undefined)) BOARD[y][x] = snake.gridValue
   }
 
   BOARD[snake.body[voidIndex].y][snake.body[voidIndex].x] = 0
 
-  moveSegment(0)
-  teleportSegment(0)
+  moveSegment()
+  teleportSnakeHead()
 
   checkColisions()
 
-  BOARD[snake.body[0].y][snake.body[0].x] = snake.values[0]
+  BOARD[snake.body[0].y][snake.body[0].x] = snake.gridValue
 }
 
 function checkColisions() {
   const { x, y } = snake.body[0]
 
-  if (snake.values.includes(BOARD[y][x])) {
-    gameOverSoundEffect.play()
+  if (snake.gridValue === BOARD[y][x]) {
     snake.direction = 'none'
-
-    window.alert('Game over, my friend!')
-
     document.location.reload()
   }
 }
 
-// Sistema para generar una manzana aleatoria. Incluye la primera versión de un sitema básico de puntos.
+/* La manzana */
 
-import { Item } from './src/components/Item.js'
+const apple = {
+  position: { x: 10, y: 20 },
+  isGeneretable: true,
+  color: '#970',
+  gridValue: 6,
 
-let points = 0
+  generate: function (callback) {
+    this.isGeneretable = false
 
-const apple = new Item()
+    const { x, y } = callback(this.position.x, this.position.y) || this.position
 
-/**@param {Item} item */
-function checkItem(item) {
-  if (item.isGeneretable) {
-    item.generate((x, y) => {
+    this.position.x = x
+    this.position.y = y
+  },
+}
+
+function checkApple() {
+  if (apple.isGeneretable) {
+    apple.generate((x, y) => {
       while (BOARD[y][x] !== 0) {
         x = Math.floor(Math.random() * BOARD.length)
         y = Math.floor(Math.random() * BOARD[0].length)
       }
 
-      BOARD[y][x] = item.gridValue
+      BOARD[y][x] = apple.gridValue
 
       return { x, y }
     })
   }
 
-  if (BOARD[item.position.y][item.position.x] !== item.gridValue) {
-    item.isGeneretable = true
+  if (BOARD[apple.position.y][apple.position.x] !== apple.gridValue) {
+    apple.isGeneretable = true
 
     points++
     snake.tailSize++
   }
 }
 
-// Añadiendo controles. Se hicieron de manera que el jugador no pueda moverse en la dirección opuesta a la que lleva.
+/* Controles */
 
 const EVENT_MOVEMENTS = {
   UP: ['ArrowUp', 'w'],
@@ -162,19 +170,15 @@ function controls(event) {
 
 document.addEventListener('keydown', controls)
 
-// Dibujado de elementos en el canvas.
+/* Game loop */
 
 function draw() {
   moveSnake()
-
-  checkItem(apple)
+  checkApple()
 
   const colors = {
-    0: '#001010',
-    [snake.values[0]]: '#2a8',
-    [snake.values[1]]: '#cc91',
-    [snake.values[2]]: '#3d92',
-    [snake.values[3]]: '#3d91',
+    0: '#000b10',
+    [snake.gridValue]: snake.color,
     [apple.gridValue]: apple.color,
   }
 
@@ -186,7 +190,7 @@ function draw() {
     })
   })
 
-  pointsRecord.innerHTML = `Points: ${points}`
+  recordPoints.innerHTML = `Points: ${points}`
 }
 
-setInterval(draw, 1000 / 15)
+const gameLoop = setInterval(draw, 1000 / 15)
