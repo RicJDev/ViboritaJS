@@ -4,22 +4,31 @@ Un juego simple tipo Snake. Inspirado en un jueguito de MsDOS, fue desarrollado 
 
 ## ¿Cómo surgió este proyecto?
 
-![Video de la primera demo](./images/snake_first_demo.gif)
+<div align="center">
+
+![Video de la primera demo](./images/snake_demo.gif)
+
+</div>
 
 Estaba yo practicando mi lógica con un mini juego del cuál grabé una _"demo"_ (nótense las comillas) y de alguna manera terminó convirtiéndose en una idea más grande... o al menos, más completa.
 
 ## ¿Cómo está construido?
 
-En Viborita.js se distinguen cuatro estados:
+Toda la magia es posible gracias a la etiqueta canvas dentro de mi html.
 
-- **Preparado para jugarse:** el nivel no empieza hasta que el jugador lo inicialice.
+```html
+<body>
+  <canvas></canvas>
+</body>
+```
 
-- **En movimiento:** el jugador controla a una serpiente que se mantiene en movimiento constante, pudiendo girar a los lados, pero nunca retroceder.
+Esta contiene una serie de metodos que permiten dibujar en ella. De forma general, se usa de la siguiente manera:
 
-- **Comiendo:** al comer un item el jugador crece y se genera un nuevo item en una posición aleatoria.
+```js
+const canvas = document.querySelector('canvas')
+const context = canvas.getContext('2d')
+```
 
-- **Fin del nivel:** el jugador ha alcanzado el objetivo del nivel y se le habilita a jugar otro de mayor dificultad.
+Y es el objeto `context` el que permite dibujar en el lienzo.
 
-- **Muerte por choque:** al colisionar con los obstáculos o consigo mismo, el jugador pierde una vida y empieza el nivel desde cero.
-
-Se ha modelado el juego de manera que estos estados sean representados y actualizados según las acciones del jugador.
+Ya lo demás sería agregar una lógica que gestione los estados del juego y el input del jugador.
