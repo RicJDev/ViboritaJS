@@ -1,15 +1,22 @@
-/* Creando matriz del tablero */
+/* Creando tablero */
 
 // Dimensiones del tablero.
 
 const BOARD_HEIGHT = 30
 const BOARD_WIDTH = 30
-const BLOCK_SIZE = 12
+const BLOCK_SIZE = 15
 
 // Generación del tablero.
 
+/*
 const BOARD = new Array(BOARD_HEIGHT)
 for (let i = 0; i < BOARD.length; i++) BOARD[i] = new Array(BOARD_WIDTH).fill(0)
+*/
+
+import { level1_Board as BOARD } from './src/levels/01.js'
+
+let background = '#000b10'
+let obstacleColor = '#d04090'
 
 /* Elementos HTML */
 
@@ -33,42 +40,43 @@ const currentLevel = document.querySelector('.current-level')
 
 currentLevel.innerHTML = `Nivel: ${level}`
 
+// Efectos de sonido.
+
+const deathEffect = new window.Audio('../game/src/assets/deathEffect.ogg')
+deathEffect.playbackRate = 3
+
+const appleBite = new window.Audio('../game/src/assets/appleBite.ogg')
+appleBite.load()
+appleBite.playbackRate = 3
+
 /* La serpiente */
 
 const snake = {
   body: [{ x: 1, y: 1 }],
-  tailSize: 2,
+  tailSize: 3,
 
   direction: 'right',
 
-  color: '#60a0bf',
+  color: '#4090bf',
   gridValue: 1,
 }
 
-// Función para teletransportar a la serpiente si se sale de los límites del tablero.
+const originalColor = snake.color
 
-function teleportSnakeHead() {
-  const segment = snake.body[0]
+// Movimientos de la serpiente.
 
-  if (segment.y < 0) segment.y = BOARD.length - 1
-  if (segment.y >= BOARD.length) segment.y = 0
-
-  if (segment.x < 0) segment.x = BOARD[0].length - 1
-  if (segment.x >= BOARD[0].length) segment.x = 0
-}
-
-// Sistema de movimiento. Cambia según la dirección de la serpiente.
-
-const SEGMENT_MOVEMENTS = {
+const HEAD_MOVEMENTS = {
   up: () => snake.body[0].y--,
   down: () => snake.body[0].y++,
   left: () => snake.body[0].x--,
   right: () => snake.body[0].x++,
-  none: () => {},
+  none: () => {
+    document.removeEventListener('keydown', controls)
+  },
 }
 
 function moveSnake() {
-  const moveSegment = SEGMENT_MOVEMENTS[snake.direction]
+  const moveHead = HEAD_MOVEMENTS[snake.direction]
 
   snake.body.length = snake.tailSize + 2
 
@@ -79,12 +87,12 @@ function moveSnake() {
 
     const { x, y } = snake.body[i]
 
-    if ((x !== undefined) & (y !== undefined)) BOARD[y][x] = snake.gridValue
+    if (x & y) BOARD[y][x] = snake.gridValue
   }
 
   BOARD[snake.body[voidIndex].y][snake.body[voidIndex].x] = 0
 
-  moveSegment()
+  moveHead()
   teleportSnakeHead()
 
   checkColisions()
@@ -92,27 +100,61 @@ function moveSnake() {
   BOARD[snake.body[0].y][snake.body[0].x] = snake.gridValue
 }
 
+function teleportSnakeHead() {
+  const head = snake.body[0]
+
+  if (head.y < 0) head.y = BOARD.length - 1
+  if (head.y >= BOARD.length) head.y = 0
+
+  if (head.x < 0) head.x = BOARD[0].length - 1
+  if (head.x >= BOARD[0].length) head.x = 0
+}
+
 function checkColisions() {
   const { x, y } = snake.body[0]
 
-  if (snake.gridValue === BOARD[y][x]) {
-    snake.direction = 'none'
+  if (BOARD[y][x] === snake.gridValue || BOARD[y][x] === 10) gameOver()
+}
+
+function gameOver() {
+  snake.direction = 'none'
+
+  document.removeEventListener('keydown', controls)
+
+  obstacleColor = '#111'
+  background = '#d44'
+
+  snake.color = '#111'
+  apple.color = '#eee'
+
+  deathEffect.play()
+
+  setTimeout(() => {
     document.location.reload()
-  }
+  }, 800)
 }
 
 /* La manzana */
 
 const apple = {
-  position: { x: 10, y: 20 },
+  position: { x: 8, y: 20 },
   isGeneretable: true,
   color: '#970',
   gridValue: 6,
 
-  generate: function (callback) {
+  generate: function () {
+    if (!this.isGeneretable) return
+
     this.isGeneretable = false
 
-    const { x, y } = callback(this.position.x, this.position.y) || this.position
+    let { x, y } = this.position
+
+    while (BOARD[y][x] !== 0) {
+      x = Math.floor(Math.random() * BOARD.length)
+      y = Math.floor(Math.random() * BOARD[0].length)
+    }
+
+    BOARD[y][x] = apple.gridValue
 
     this.position.x = x
     this.position.y = y
@@ -121,19 +163,19 @@ const apple = {
 
 function checkApple() {
   if (apple.isGeneretable) {
-    apple.generate((x, y) => {
-      while (BOARD[y][x] !== 0) {
-        x = Math.floor(Math.random() * BOARD.length)
-        y = Math.floor(Math.random() * BOARD[0].length)
-      }
-
-      BOARD[y][x] = apple.gridValue
-
-      return { x, y }
-    })
+    apple.generate()
   }
 
   if (BOARD[apple.position.y][apple.position.x] !== apple.gridValue) {
+    snake.color = '#99b'
+
+    setTimeout(() => {
+      snake.color = originalColor
+    }, 10)
+
+    appleBite.currentTime = 0
+    appleBite.play()
+
     apple.isGeneretable = true
 
     points++
@@ -177,9 +219,10 @@ function draw() {
   checkApple()
 
   const colors = {
-    0: '#000b10',
+    0: background,
     [snake.gridValue]: snake.color,
     [apple.gridValue]: apple.color,
+    10: obstacleColor,
   }
 
   BOARD.forEach((row, y) => {
@@ -193,4 +236,4 @@ function draw() {
   recordPoints.innerHTML = `Points: ${points}`
 }
 
-const gameLoop = setInterval(draw, 1000 / 15)
+const gameLoop = setInterval(draw, 1000 / 13)

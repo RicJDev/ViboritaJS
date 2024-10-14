@@ -1,18 +1,25 @@
-const LEVEL = 1
-
-const levelBoard = new Array(30)
-for (let i = 0; i < levelBoard.length; i++) levelBoard[i] = new Array(30).fill(0)
+const level1_Board = new Array(30)
+for (let i = 0; i < level1_Board.length; i++) level1_Board[i] = new Array(30).fill(0)
 
 const gridValue = 10
-const line = new Array(8).fill(gridValue)
+const line = new Array(15).fill(gridValue)
 
-const obstacleAnchor = {
-  x: Math.floor(levelBoard[0].length / 2) - line.length,
-  y: Math.floor(levelBoard.length / 2),
+const obstacleAnchor1 = {
+  x: Math.floor(level1_Board[0].length / 2) - Math.floor(line.length / 2),
+  y: level1_Board.length - 8,
 }
 
-for (let i = obstacleAnchor.x; i < obstacleAnchor.x + line.length; i++) {
-  levelBoard[obstacleAnchor.y][i] = gridValue
+const obstacleAnchor2 = {
+  x: Math.floor(level1_Board[0].length / 2) - Math.floor(line.length / 2),
+  y: 6,
 }
 
-export { levelBoard }
+for (let i = obstacleAnchor2.x; i < obstacleAnchor2.x + line.length; i++) {
+  level1_Board[obstacleAnchor2.y][i] = gridValue
+}
+
+for (let i = obstacleAnchor1.x; i < obstacleAnchor1.x + line.length; i++) {
+  level1_Board[obstacleAnchor1.y][i] = gridValue
+}
+
+export { level1_Board }
