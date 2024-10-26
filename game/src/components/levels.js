@@ -1,7 +1,12 @@
-const LEVEL_1 = new Array(30)
-for (let i = 0; i < LEVEL_1.length; i++) LEVEL_1[i] = new Array(30).fill(0)
+const basicBoard = new Array(30)
+for (let i = 0; i < basicBoard.length; i++) basicBoard[i] = new Array(30).fill(0)
 
 const gridValue = 10
+
+// LEVEL 1
+
+const LEVEL_1 = [...basicBoard]
+
 const line = new Array(15).fill(gridValue)
 
 const anchor = {
@@ -15,4 +20,12 @@ anchor.y = 6
 
 for (let i = anchor.x; i < anchor.x + line.length; i++) LEVEL_1[anchor.y][i] = gridValue
 
-export { LEVEL_1 }
+// LEVEL 2
+
+const LEVEL_2 = [...basicBoard]
+
+// LEVEL 3
+
+const LEVEL_3 = [...basicBoard]
+
+export { LEVEL_1, LEVEL_2, LEVEL_3 }

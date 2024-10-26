@@ -1,3 +1,8 @@
+import { LEVEL_1, LEVEL_2, LEVEL_3 } from './src/components/levels.js'
+import { snake } from './src/components/snake.js'
+
+snake.direction = 'up'
+
 /* Creando tablero */
 
 // Dimensiones del tablero.
@@ -7,8 +12,6 @@ const BOARD_WIDTH = 30
 const BLOCK_SIZE = 15
 
 // Generación del tablero.
-
-import { LEVEL_1 } from './src/levels/01.js'
 
 let background = '#000b10'
 let obstacleColor = '#d04090'
@@ -46,102 +49,59 @@ appleBite.playbackRate = 3
 
 /* La serpiente */
 
-const snake = {
-  body: [{ x: 1, y: 1 }],
-  tailSize: 2,
+function moveSnake(board = LEVEL_1) {
+  const SNAKE_DIRECTIONS = {
+    up: () => Snake.body[0].y--,
+    down: () => Snake.body[0].y++,
+    left: () => Snake.body[0].x--,
+    right: () => Snake.body[0].x++,
+    none: () => {},
+  }
 
-  direction: 'right',
+  const moveHead = SNAKE_DIRECTIONS[this.direction]
+  this.body.length = this.size + 2
 
-  color: '#4090bf',
-  gridValue: 1,
-}
+  const voidIndex = this.body.length - 1
 
-const originalColor = snake.color
-
-// Movimientos de la serpiente.
-
-const SNAKE_DIRECTIONS = {
-  up: () => snake.body[0].y--,
-  down: () => snake.body[0].y++,
-  left: () => snake.body[0].x--,
-  right: () => snake.body[0].x++,
-  none: () => {},
-}
-
-function moveSnake(board) {
-  const moveHead = SNAKE_DIRECTIONS[snake.direction]
-
-  snake.body.length = snake.tailSize + 2
-
-  const voidIndex = snake.body.length - 1
-
-  for (let i = voidIndex; i > 0; i--) snake.body[i] = { ...snake.body[i - 1] }
-
-  LEVEL_1[snake.body[voidIndex].y][snake.body[voidIndex].x] = 0
+  for (let i = voidIndex; i > 0; i--) this.body[i] = { ...this.body[i - 1] }
 
   moveHead()
-  checkColisions()
 
-  const { x, y } = snake.body[0]
+  const { x, y } = Snake.body[0]
 
-  /*
-  TODO:
+  if (x > board.length) Snake.body[0].x = 0
+  if (x < 0) Snake.body[0].x = board.length - 1
 
-  Si la fila es indefinida no se podra leer ni escribir propiedades en ella. Por eso esta dando error.
+  if (y > board[0].length) Snake.body[0].y = 0
+  if (y < 0) Snake.body[0].y = board[0].length - 1
 
-  Y ahora que lo entiendo, toca corregirlo, pero no tengo tiempo en este momento.
-  */
-
-  LEVEL_1[y][x] = snake.gridValue
-}
-
-function teleportSnakeHead() {
-  const head = snake.body[0]
-
-  if (head.y < 0) head.y = LEVEL_1.length - 1
-  if (head.y >= LEVEL_1.length) head.y = 0
-
-  if (head.x < 0) head.x = LEVEL_1[0].length - 1
-  if (head.x >= LEVEL_1[0].length) head.x = 0
+  board[y][x] = Snake.gridValue
 }
 
 function checkColisions() {
-  const { x, y } = snake.body[0]
+  const { x, y } = Snake.body[0]
 
   const actions = new Map([
     [0, () => {}],
 
     [10, gameOver],
-    [snake.gridValue, gameOver],
+    [Snake.gridValue, gameOver],
 
     [apple.gridValue, increaseSnakeSize],
-
-    [undefined, teleportSnakeHead],
   ])
 
-  /*
-  const actions = {
-    [0]: () => {},
-    
-    [10]: gameOver,
-    [snake.gridValue]: gameOver,
-    
-    [apple.gridValue]: increaseSnakeSize,
-  }
-  */
+  const action = actions.get(LEVEL_1[y][x])
 
-  if (LEVEL_1[y]) {
-    const action = actions.get(LEVEL_1[y][x])
-
-    action()
-  }
+  action()
 }
 
+const originalColor = Snake.color
+
 function increaseSnakeSize() {
-  snake.color = '#99b'
+  Snake.color = '#99b'
 
   setTimeout(() => {
-    snake.color = originalColor
+    Snake.color = originalColor
   }, 10)
 
   appleBite.currentTime = 0
@@ -150,18 +110,18 @@ function increaseSnakeSize() {
   apple.isGeneretable = true
 
   points++
-  snake.tailSize++
+  Snake.size++
 }
 
 function gameOver() {
-  snake.direction = 'none'
+  Snake.direction = 'none'
 
   document.removeEventListener('keydown', controls)
 
   obstacleColor = '#111'
   background = '#d44'
 
-  snake.color = '#111'
+  Snake.color = '#111'
   apple.color = '#eee'
 
   deathEffect.play()
@@ -209,19 +169,19 @@ const EVENT_MOVEMENTS = {
 
 function controls(event) {
   if (EVENT_MOVEMENTS.UP.includes(event.key)) {
-    if (snake.direction !== 'down') snake.direction = 'up'
+    if (Snake.direction !== 'down') Snake.direction = 'up'
   }
 
   if (EVENT_MOVEMENTS.DOWN.includes(event.key)) {
-    if (snake.direction !== 'up') snake.direction = 'down'
+    if (Snake.direction !== 'up') Snake.direction = 'down'
   }
 
   if (EVENT_MOVEMENTS.LEFT.includes(event.key)) {
-    if (snake.direction !== 'right') snake.direction = 'left'
+    if (Snake.direction !== 'right') Snake.direction = 'left'
   }
 
   if (EVENT_MOVEMENTS.RIGHT.includes(event.key)) {
-    if (snake.direction !== 'left') snake.direction = 'right'
+    if (Snake.direction !== 'left') Snake.direction = 'right'
   }
 }
 
@@ -236,7 +196,7 @@ function draw() {
 
   const colors = {
     0: background,
-    [snake.gridValue]: snake.color,
+    [Snake.gridValue]: Snake.color,
     [apple.gridValue]: apple.color,
     10: obstacleColor,
   }
@@ -249,7 +209,7 @@ function draw() {
     })
   })
 
-  console.log(snake.body[0])
+  console.log(Snake.body[0])
 
   recordPoints.innerHTML = `Points: ${points}`
 }
