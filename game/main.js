@@ -1,7 +1,13 @@
-import { LEVEL_1, LEVEL_2, LEVEL_3 } from './src/components/levels.js'
-import { snake } from './src/components/snake.js'
+// ! Archivo deprecado.
 
-snake.direction = 'up'
+import { LEVEL_1, LEVEL_2, LEVEL_3 } from './src/components/levels/_basicBoard.js'
+import { Level } from './src/systems/levelSystem.js'
+
+import { Snake } from './src/components/snake.js'
+import { Item } from './src/components/item.js'
+
+
+const level_One = new Level(LEVEL_1, new Snake(), new Item())
 
 /* Creando tablero */
 
@@ -49,16 +55,16 @@ appleBite.playbackRate = 3
 
 /* La serpiente */
 
-function moveSnake(board = LEVEL_1) {
-  const SNAKE_DIRECTIONS = {
-    up: () => Snake.body[0].y--,
-    down: () => Snake.body[0].y++,
-    left: () => Snake.body[0].x--,
-    right: () => Snake.body[0].x++,
+function movesnake(board = LEVEL_1) {
+  const snake_DIRECTIONS = {
+    up: () => snake.body[0].y--,
+    down: () => snake.body[0].y++,
+    left: () => snake.body[0].x--,
+    right: () => snake.body[0].x++,
     none: () => {},
   }
 
-  const moveHead = SNAKE_DIRECTIONS[this.direction]
+  const moveHead = snake_DIRECTIONS[this.direction]
   this.body.length = this.size + 2
 
   const voidIndex = this.body.length - 1
@@ -67,27 +73,27 @@ function moveSnake(board = LEVEL_1) {
 
   moveHead()
 
-  const { x, y } = Snake.body[0]
+  const { x, y } = snake.body[0]
 
-  if (x > board.length) Snake.body[0].x = 0
-  if (x < 0) Snake.body[0].x = board.length - 1
+  if (x > board.length) snake.body[0].x = 0
+  if (x < 0) snake.body[0].x = board.length - 1
 
-  if (y > board[0].length) Snake.body[0].y = 0
-  if (y < 0) Snake.body[0].y = board[0].length - 1
+  if (y > board[0].length) snake.body[0].y = 0
+  if (y < 0) snake.body[0].y = board[0].length - 1
 
-  board[y][x] = Snake.gridValue
+  board[y][x] = snake.gridValue
 }
 
 function checkColisions() {
-  const { x, y } = Snake.body[0]
+  const { x, y } = snake.body[0]
 
   const actions = new Map([
     [0, () => {}],
 
     [10, gameOver],
-    [Snake.gridValue, gameOver],
+    [snake.gridValue, gameOver],
 
-    [apple.gridValue, increaseSnakeSize],
+    [apple.gridValue, increasesnakeSize],
   ])
 
   const action = actions.get(LEVEL_1[y][x])
@@ -95,13 +101,13 @@ function checkColisions() {
   action()
 }
 
-const originalColor = Snake.color
+const originalColor = snake.color
 
-function increaseSnakeSize() {
-  Snake.color = '#99b'
+function increasesnakeSize() {
+  snake.color = '#99b'
 
   setTimeout(() => {
-    Snake.color = originalColor
+    snake.color = originalColor
   }, 10)
 
   appleBite.currentTime = 0
@@ -110,18 +116,18 @@ function increaseSnakeSize() {
   apple.isGeneretable = true
 
   points++
-  Snake.size++
+  snake.size++
 }
 
 function gameOver() {
-  Snake.direction = 'none'
+  snake.direction = 'none'
 
   document.removeEventListener('keydown', controls)
 
   obstacleColor = '#111'
   background = '#d44'
 
-  Snake.color = '#111'
+  snake.color = '#111'
   apple.color = '#eee'
 
   deathEffect.play()
@@ -169,19 +175,19 @@ const EVENT_MOVEMENTS = {
 
 function controls(event) {
   if (EVENT_MOVEMENTS.UP.includes(event.key)) {
-    if (Snake.direction !== 'down') Snake.direction = 'up'
+    if (snake.direction !== 'down') snake.direction = 'up'
   }
 
   if (EVENT_MOVEMENTS.DOWN.includes(event.key)) {
-    if (Snake.direction !== 'up') Snake.direction = 'down'
+    if (snake.direction !== 'up') snake.direction = 'down'
   }
 
   if (EVENT_MOVEMENTS.LEFT.includes(event.key)) {
-    if (Snake.direction !== 'right') Snake.direction = 'left'
+    if (snake.direction !== 'right') snake.direction = 'left'
   }
 
   if (EVENT_MOVEMENTS.RIGHT.includes(event.key)) {
-    if (Snake.direction !== 'left') Snake.direction = 'right'
+    if (snake.direction !== 'left') snake.direction = 'right'
   }
 }
 
@@ -192,11 +198,11 @@ document.addEventListener('keydown', controls)
 function draw() {
   if (apple.isGeneretable) apple.generate()
 
-  moveSnake()
+  movesnake()
 
   const colors = {
     0: background,
-    [Snake.gridValue]: Snake.color,
+    [snake.gridValue]: snake.color,
     [apple.gridValue]: apple.color,
     10: obstacleColor,
   }
@@ -208,8 +214,6 @@ function draw() {
       context.fillRect(x, y, 1, 1)
     })
   })
-
-  console.log(Snake.body[0])
 
   recordPoints.innerHTML = `Points: ${points}`
 }
