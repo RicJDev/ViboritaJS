@@ -1,19 +1,23 @@
 class Snake {
-  constructor(color) {
-    this.color = color || '#4090bf'
-  }
-
-  body = [{ x: 1, y: 1 }]
+  _body = [{ x: 1, y: 1 }]
   size = 2
 
   direction = 'right'
 
-  setSegments() {
-    this.body.length = this.size + 2
+  gridValue = 8
 
-    for (let i = this.body.length; i > 0; i--) {
-      this.body[i] = { ...this.body[i - 1] }
-    }
+  constructor(color) {
+    this.color = color || '#4090bf'
+  }
+
+  get body() {
+    this._body.length = this.size + 2
+  
+    const voidIndex = this._body.length
+
+    for (let i = voidIndex; i > 0; i--) this._body[i] = { ...this._body[i - 1] }
+
+    return this._body
   }
 }
 
