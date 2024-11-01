@@ -6,11 +6,25 @@
     <title>Snake Game</title>
 
     <style>
+      :root {
+        --blue: #00183a;
+        --green: #3a5f6d;
+      }
+
       body {
+        background-color: var(--blue);
+        opacity: 1;
+        background-image: radial-gradient(circle at center center, #e5e5f7, var(--blue)),
+          repeating-radial-gradient(circle at center center, #e5e5f7, #e5e5f7, 28px, transparent 56px, transparent 28px);
+        background-blend-mode: multiply;
+
         margin: 0;
-        background: #222;
+
         color: #eee;
-        font-family: 'Courier New', Courier, monospace;
+
+        font-family: Arial, Helvetica, sans-serif;
+        letter-spacing: 6px;
+        text-transform: uppercase;
       }
 
       h2 {
@@ -24,56 +38,57 @@
 
         display: flex;
         flex-direction: column;
+
         text-align: center;
-        background-color: #000909;
       }
 
       .status-bar {
         display: flex;
         flex-direction: row;
-        padding: 10px;
+
+        margin: 0;
+
+        padding: 15px;
       }
 
       .record-points,
       .current-level {
         margin: auto;
         flex-direction: row;
-        width: 24%;
+
+        width: 20%;
         padding: 1%;
-        background: #111;
+        background: var(--green);
+
+        font-size: 15px;
       }
 
       canvas {
         margin: auto;
         border: 1px solid #efe;
+
+        height: 450px;
+        width: 450px;
+
+        background: #000b10;
       }
 
       button {
         margin: auto;
       }
-
-      canvas {
-        height: 450px;
-        width: 450px;
-      }
-      
     </style>
-
-    <script type="module" src="./game/main.js"></script>
   </head>
   <body>
-    <div class="container">
-      <div class="game-area">
-        <h2>Viborita JS</h2>
+    <div class="game-area">
+      <h2>Viborita JS</h2>
 
-        <p>A comer manzanas!</p>
+      <p>A comer manzanas!</p>
 
-        <canvas></canvas>
+      <canvas></canvas>
 
-        <div class="status-bar">
-          <h3 class="record-points">Points: 0</h3>
-          <h3 class="current-level">Level: 0</h3>
-        </div>
+      <div class="status-bar">
+        <h3 class="record-points">Points: 0</h3>
+        <h3 class="current-level">Level: 0</h3>
       </div>
     </div>
   </body>
