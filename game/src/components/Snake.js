@@ -1,24 +1,43 @@
 class Snake {
-  _body = [{ x: 1, y: 1 }]
+  gridValue = 9
+
   size = 2
+  #body = [{ x: 1, y: 1 }]
 
-  direction = 'right'
+  head = this.#body[0]
 
-  gridValue = 8
+  isAlive = true
 
-  constructor(color) {
-    this.color = color || '#4090bf'
+  //prettier-ignore
+  constructor(color) { this.color = color || '#4090bf' }
+
+  #direction = 'right'
+  #movements = {
+    up: () => this.head.y--,
+    down: () => this.head.y++,
+    left: () => this.head.x--,
+    right: () => this.head.x++,
+    none: () => {},
   }
 
-  get body() {
-    this._body.length = this.size + 2
-  
-    const voidIndex = this._body.length
+  moveHead(callback = () => {}) {
+    this.#body.length = this.size
 
-    for (let i = voidIndex; i > 0; i--) this._body[i] = { ...this._body[i - 1] }
+    for (let i = this.#body.length; i > 0; i--) this.#body[i] = { ...this.#body[i - 1] }
 
-    return this._body
+    this.#movements[this.#direction]()
+
+    callback()
   }
+
+  set direction(direction) {
+    const Directions = Object.keys(this.#movements)
+
+    if (Directions.includes(direction)) this.#direction = direction
+  }
+
+  //prettier-ignore
+  get body() { return this.#body }
 }
 
 export { Snake }

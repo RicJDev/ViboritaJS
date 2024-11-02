@@ -9,8 +9,21 @@ class Level {
     this.#item = item
   }
 
+  get colors() {
+    const colors = {
+      0: '#000b10',
+      1: '#d04090',
+      [this.#snake.gridValue]: this.#snake.color,
+      [this.#item.gridValue]: this.#item.color,
+    }
+
+    return colors
+  }
+
   get grid() {
-    const grid = [...this.#board]
+    const grid = JSON.parse(JSON.stringify(this.#board))
+
+    // const grid = [...this.#board]
 
     grid[this.#item.position.y][this.#item.position.x] = this.#item.gridValue
 

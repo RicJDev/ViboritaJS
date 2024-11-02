@@ -1,8 +1,8 @@
 class Item {
+  gridValue = 8
+
   position = { x: 10, y: 20 }
   isGeneretable = true
-
-  gridValue = 7
 
   constructor(color) {
     this.color = color || '#970'
