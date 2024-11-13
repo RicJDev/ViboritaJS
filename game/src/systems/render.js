@@ -1,22 +1,32 @@
-function render(level) {
-  const { grid, colors } = level
+class Render {
+  #blockSize
+  #canvas
+  #context
 
-  const blockSize = 15
+  constructor(blockSize) {
+    this.#blockSize = blockSize || 15
 
-  const canvas = document.querySelector('canvas')
-  canvas.height = grid.length * blockSize
-  canvas.width = grid[0].length * blockSize
+    this.#canvas = document.querySelector('canvas')
 
-  const context = canvas.getContext('2d')
-  context.scale(blockSize, blockSize)
+    this.#canvas.height = 30 * this.#blockSize
+    this.#canvas.width = 30 * this.#blockSize
 
-  grid.forEach((row, y) => {
-    row.forEach((value, x) => {
-      context.fillStyle = colors[value] || colors[0]
+    this.#context = this.#canvas.getContext('2d')
 
-      context.fillRect(x, y, 1, 1)
+    this.#context.scale(this.#blockSize, this.#blockSize)
+  }
+
+  draw(level) {
+    const { grid, colors } = level
+
+    grid.forEach((row, y) => {
+      row.forEach((value, x) => {
+        this.#context.fillStyle = colors[value] || colors[0]
+
+        this.#context.fillRect(x, y, 1, 1)
+      })
     })
-  })
+  }
 }
 
-export { render }
+export { Render }

@@ -1,5 +1,4 @@
-import { basicBoard } from './_basicBoard.js'
-import { gridValue } from './_basicBoard.js'
+import { basicBoard, gridValue } from './_basicBoard.js'
 
 const _01 = [...basicBoard]
 

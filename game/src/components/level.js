@@ -9,6 +9,22 @@ class Level {
     this.#item = item
   }
 
+  #addGridValue(grid, { x, y }, gridValue) {
+    if (x >= 0 && x < this.#board.width && y >= 0 && y < this.#board.height) {
+      grid[y * this.#board.width + x] = gridValue
+    }
+  }
+
+  #convertTo2d(grid) {
+    const convertedGrid = []
+
+    for (let i = 0; i < this.#board.length; i += this.#board.width) {
+      convertedGrid.push(grid.slice(i, i + this.#board.width))
+    }
+
+    return convertedGrid
+  }
+
   get colors() {
     const colors = {
       0: '#000b10',
@@ -21,19 +37,15 @@ class Level {
   }
 
   get grid() {
-    const grid = JSON.parse(JSON.stringify(this.#board))
+    const copy = [...this.#board.grid]
 
-    // const grid = [...this.#board]
-
-    grid[this.#item.position.y][this.#item.position.x] = this.#item.gridValue
+    this.#addGridValue(copy, this.#item.position, this.#item.gridValue)
 
     this.#snake.body.forEach((segment) => {
-      const { x, y } = segment
-
-      if (grid[y]) grid[y][x] = this.#snake.gridValue
+      this.#addGridValue(copy, segment, this.#snake.gridValue)
     })
 
-    return grid
+    return this.#convertTo2d(copy)
   }
 }
 

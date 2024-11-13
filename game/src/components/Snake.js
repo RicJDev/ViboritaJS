@@ -8,7 +8,6 @@ class Snake {
 
   isAlive = true
 
-  //prettier-ignore
   constructor(color) { this.color = color || '#4090bf' }
 
   #direction = 'right'
@@ -20,14 +19,20 @@ class Snake {
     none: () => {},
   }
 
-  moveHead(callback = () => {}) {
+  move(xLimit = 30, yLimit = 30) {
     this.#body.length = this.size
 
-    for (let i = this.#body.length; i > 0; i--) this.#body[i] = { ...this.#body[i - 1] }
+    for (let i = this.#body.length; i > 0; i--) {
+      this.#body[i] = { ...this.#body[i - 1] }
+    }
 
     this.#movements[this.#direction]()
 
-    callback()
+    if (this.head.x >= xLimit) this.head.x = 0
+    if (this.head.x < 0) this.head.x = xLimit - 1
+
+    if (this.head.y >= yLimit) this.head.y = 0
+    if (this.head.y < 0) this.head.y = yLimit - 1
   }
 
   set direction(direction) {
@@ -36,7 +41,8 @@ class Snake {
     if (Directions.includes(direction)) this.#direction = direction
   }
 
-  //prettier-ignore
+  get direction() { return this.#direction }
+
   get body() { return this.#body }
 }
 

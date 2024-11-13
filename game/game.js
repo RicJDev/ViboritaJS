@@ -1,25 +1,24 @@
 import * as board from './src/components/boards/index.js'
 import { Snake, Item, Level } from './src/components/index.js'
 
-import { render } from './src/systems/render.js'
+import { Board } from './src/components/boards/board.js'
 
-const mike = new Snake()
+import { Render } from './src/systems/render.js'
+import { controls } from './src/systems/controls.js'
+
+const snake = new Snake()
 const apple = new Item()
 
-const level1 = new Level(board._01, mike, apple)
+const level1 = new Level(new Board(), snake, apple)
 
-function draw() {
-  render(level1)
+const render = new Render()
 
-  mike.moveHead(() => {
-    const { x, y } = mike.head
+controls(snake)
 
-    if (x > 30) mike.head.x = 0
-    if (x < 0) mike.head.x = 30 - 1
+function main() {
+  render.draw(level1)
 
-    if (y > 30) mike.head.y = 0
-    if (y < 0) mike.head.y = 30 - 1
-  })
+  snake.move()
 }
 
-setInterval(draw, 1000 / 15)
+setInterval(main, 1000 / 15)

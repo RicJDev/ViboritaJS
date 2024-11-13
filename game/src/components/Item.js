@@ -1,7 +1,7 @@
 class Item {
   gridValue = 8
 
-  position = { x: 10, y: 20 }
+  position = { x: 8, y: 8 }
   isGeneretable = true
 
   constructor(color) {
