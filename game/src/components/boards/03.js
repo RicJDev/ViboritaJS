@@ -1,6 +1,6 @@
-import { basicBoard, gridValue } from './_basicBoard.js'
+import { Board } from './board.js'
 
-const _03 = [...basicBoard]
+const _03 = new Board()
 
 // TODO: obstaaculos del nivel 03
 

@@ -1,6 +1,8 @@
 class Board {
   #grid
 
+  gridValue = 1
+
   constructor(height, width) {
     this.height = height || 30
     this.width = width || this.height
