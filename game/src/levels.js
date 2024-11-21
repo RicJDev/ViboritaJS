@@ -5,15 +5,14 @@ import { ObstaclesCollection } from './components.js'
 
 const _01 = new ObstaclesCollection()
 
-let line = 15,
-  x = 8,
-  y = 22
+const line = 15
 
-for (let i = x; i < x + line; i++) _01.add({ x: i, y: y })
+function addLine(x, y, lineWidth) {
+  for (let i = x; i < x + lineWidth; i++) _01.add(i, y)
+}
 
-y = 6
-
-for (let i = x; i < x + line; i++) _01.add({ x: i, y: y })
+addLine(8, 22, line)
+addLine(8, 6, line)
 
 //--------------------------------------------------------------------------------------//
 

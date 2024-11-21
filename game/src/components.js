@@ -2,10 +2,10 @@
 //-------------------------------------------------------------------------------------//
 
 class Snake {
-  value = 9
-
   coords = [{ y: 1, x: 1 }]
   head = this.coords[0]
+
+  isAlive = true
 
   size = 2
   direction = 'right'
@@ -22,7 +22,7 @@ class Snake {
     none: () => {},
   }
 
-  move(limitX = 30, limitY = 30) {
+  move(xLimit = 30, yLimit = 30) {
     this.coords.length = this.size
 
     for (let i = this.coords.length; i > 0; i--) {
@@ -31,38 +31,34 @@ class Snake {
 
     ;(this.#movements[this.direction] || this.#movements.none)()
 
-    if (this.head.x >= limitX) this.head.x = 0
-    if (this.head.x < 0) this.head.x = limitX - 1
+    if (this.head.x >= xLimit) this.head.x = 0
+    if (this.head.x < 0) this.head.x = xLimit - 1
 
-    if (this.head.y >= limitY) this.head.y = 0
-    if (this.head.y < 0) this.head.y = limitY - 1
+    if (this.head.y >= yLimit) this.head.y = 0
+    if (this.head.y < 0) this.head.y = yLimit - 1
   }
 }
 
 //-------------------------------------------------------------------------------------//
 
 class ObstaclesCollection {
-  value = 1
-
   coords = []
 
   constructor(color = '#d04090') {
     this.color = color
   }
 
-  add(coord) {
-    this.coords.push(coord)
+  add(x, y) {
+    this.coords.push({ x: x, y: y })
   }
 }
 
 //-------------------------------------------------------------------------------------//
 
 class Apple {
-  value = 8
+  coords = { y: 0, x: 0 }
 
-  coords = { y: 5, x: 8 }
-
-  isGeneretable = false
+  isGeneretable = true
 
   constructor(color) {
     this.color = color || '#970'
