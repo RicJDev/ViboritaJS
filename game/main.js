@@ -27,10 +27,10 @@ ctx.scale(blockSize, blockSize)
 // EFECTOS DE SONIDO
 //-------------------------------------------------------------------------------------//
 
-const deathSFX = new window.Audio('../game/assets/deathEffect.ogg')
+const deathSFX = new Audio('../game/assets/deathEffect.ogg')
 deathSFX.playbackRate = 4
 
-const biteSFX = new window.Audio('../game/assets/appleBite.ogg')
+const biteSFX = new Audio('../game/assets/appleBite.ogg')
 biteSFX.load()
 
 biteSFX.playbackRate = 6
@@ -40,6 +40,7 @@ biteSFX.playbackRate = 6
 
 const snake = new Snake()
 const apple = new Apple()
+
 let currentLevel = _01
 
 // LOGICA PARA GESTIONAR LA GENERACION DE LA MANZANA
@@ -49,6 +50,8 @@ let points = 0
 
 function generateApple() {
   const { coords } = currentLevel
+
+  apple.isGeneretable = true
 
   let x = 0,
     y = 0
@@ -65,7 +68,7 @@ function checkApple() {
   const { head } = snake,
     { coords } = apple
 
-  const prevColor = snake.color
+  const previousColor = snake.color
 
   if (head.x === coords.x && head.y === coords.y) {
     biteSFX.currentTime = 0
@@ -73,20 +76,22 @@ function checkApple() {
 
     snake.color = '#7bfadf'
 
-    apple.isGeneretable = true
     generateApple()
 
     snake.size++
     points++
 
     setTimeout(() => {
-      snake.color = prevColor
+      snake.color = previousColor
     }, 200)
   }
 }
 
 // CONTROLES
 //-------------------------------------------------------------------------------------//
+
+// TODO: agregar soporte para las teclas 'w', 'a', 's' y 'd'
+// TODO: corregir funcionalidad para evitar colisiones por movimientos inesperados
 
 const moveInputs = {
   ArrowUp: () => (snake.direction = 'up'),
@@ -97,19 +102,23 @@ const moveInputs = {
   none: () => {},
 }
 
-const directionOposites = { up: 'down', down: 'up', left: 'right', right: 'left' }
-
 function controls(event) {
   const previousDirection = snake.direction
 
   ;(moveInputs[event.key] || moveInputs.none)()
 
-  if (directionOposites[snake.direction] == previousDirection) {
+  snake.targetDirection = snake.direction
+
+  if (snake.oppositeDirection === previousDirection) {
     snake.direction = previousDirection
   }
 }
 
 document.addEventListener('keydown', controls)
+
+//-------------------------------------------------------------------------------------//
+
+// TODO: agregar soporte para moviles
 
 // LOGICA PARA GESTIONAR LAS COLISIONES
 //-------------------------------------------------------------------------------------//
@@ -170,7 +179,7 @@ generateApple()
 function gameLoop() {
   ctx.clearRect(0, 0, $canvas.width, $canvas.height)
 
-  draw(_01)
+  draw(currentLevel)
   draw(apple)
 
   draw(snake)
