@@ -53,13 +53,13 @@ function generateApple() {
 
   apple.isGeneretable = true
 
-  let x = 0,
-    y = 0
+  let x = Math.floor(Math.random() * boardSide),
+    y = Math.floor(Math.random() * boardSide)
 
-  do {
-    x = Math.floor(Math.random() * 30)
-    y = Math.floor(Math.random() * 30)
-  } while (coords.some((coord) => coord.x === x && coord.y === y))
+  while (coords.some((coord) => coord.x === x && coord.y === y)) {
+    x = Math.floor(Math.random() * boardSide)
+    y = Math.floor(Math.random() * boardSide)
+  }
 
   apple.generate(x, y)
 }
@@ -68,7 +68,7 @@ function checkApple() {
   const { head } = snake,
     { coords } = apple
 
-  const previousColor = snake.color
+  const prevColor = snake.color
 
   if (head.x === coords.x && head.y === coords.y) {
     biteSFX.currentTime = 0
@@ -82,7 +82,7 @@ function checkApple() {
     points++
 
     setTimeout(() => {
-      snake.color = previousColor
+      snake.color = prevColor
     }, 200)
   }
 }
@@ -90,27 +90,29 @@ function checkApple() {
 // CONTROLES
 //-------------------------------------------------------------------------------------//
 
-// TODO: agregar soporte para las teclas 'w', 'a', 's' y 'd'
 // TODO: corregir funcionalidad para evitar colisiones por movimientos inesperados
 
-const moveInputs = {
-  ArrowUp: () => (snake.direction = 'up'),
-  ArrowDown: () => (snake.direction = 'down'),
-  ArrowLeft: () => (snake.direction = 'left'),
-  ArrowRight: () => (snake.direction = 'right'),
+const arrowInputs = {
+  ArrowUp: 'up',
+  ArrowDown: 'down',
+  ArrowLeft: 'left',
+  ArrowRight: 'right',
+}
 
-  none: () => {},
+const wasdInputs = {
+  w: 'up',
+  s: 'down',
+  a: 'left',
+  d: 'right',
 }
 
 function controls(event) {
-  const previousDirection = snake.direction
+  const prevDirection = snake.direction
 
-  ;(moveInputs[event.key] || moveInputs.none)()
+  snake.direction = arrowInputs[event.key] || wasdInputs[event.key] || prevDirection
 
-  snake.targetDirection = snake.direction
-
-  if (snake.oppositeDirection === previousDirection) {
-    snake.direction = previousDirection
+  if (snake.oppositeDirection === prevDirection) {
+    snake.direction = prevDirection
   }
 }
 
