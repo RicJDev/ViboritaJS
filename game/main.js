@@ -4,18 +4,15 @@ import { _01, _02, _03 } from './src/levels.js'
 // CONSTANTES
 //-------------------------------------------------------------------------------------//
 
-const blockSize = 15,
+const blockSize = 20,
   boardSide = 30
 
 // ELEMENTOS HTML
-//-------------------------------------------------------------------------------------//
 
 const $recordPoints = document.querySelector('.record-points')
 const $currentLevel = document.querySelector('.current-level')
 
 const $canvas = document.querySelector('canvas')
-
-$canvas.style.background = '#000b10'
 
 $canvas.height = boardSide * blockSize
 $canvas.width = boardSide * blockSize
@@ -25,7 +22,6 @@ const ctx = $canvas.getContext('2d')
 ctx.scale(blockSize, blockSize)
 
 // EFECTOS DE SONIDO
-//-------------------------------------------------------------------------------------//
 
 const deathSFX = new Audio('../game/assets/deathEffect.ogg')
 deathSFX.playbackRate = 4
@@ -36,7 +32,6 @@ biteSFX.load()
 biteSFX.playbackRate = 6
 
 // COMPONENTES DEL JUEGO
-//-------------------------------------------------------------------------------------//
 
 const snake = new Snake()
 const apple = new Apple()
@@ -44,7 +39,6 @@ const apple = new Apple()
 let currentLevel = _01
 
 // LOGICA PARA GESTIONAR LA GENERACION DE LA MANZANA
-//-------------------------------------------------------------------------------------//
 
 let points = 0
 
@@ -88,7 +82,6 @@ function checkApple() {
 }
 
 // CONTROLES
-//-------------------------------------------------------------------------------------//
 
 // TODO: corregir funcionalidad para evitar colisiones por movimientos inesperados
 
@@ -118,12 +111,9 @@ function controls(event) {
 
 document.addEventListener('keydown', controls)
 
-//-------------------------------------------------------------------------------------//
-
 // TODO: agregar soporte para moviles
 
 // LOGICA PARA GESTIONAR LAS COLISIONES
-//-------------------------------------------------------------------------------------//
 
 function checkColisions() {
   const { coords } = currentLevel,
@@ -133,6 +123,8 @@ function checkColisions() {
     coords.some((value) => value.x === snake.head.x && value.y === snake.head.y) ||
     body.some((value, index) => {
       if (index !== 0) return value.x === snake.head.x && value.y === snake.head.y
+
+      return false
     })
 
   if (condition) gameOver()
@@ -159,7 +151,6 @@ function gameOver() {
 }
 
 // DIBUJADO DE LOS ELEMENTOS
-//-------------------------------------------------------------------------------------//
 
 function draw(element) {
   ctx.fillStyle = element.color
