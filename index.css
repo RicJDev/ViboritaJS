@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #111;
+  color: #ddd;
+}
+
+canvas {
+  margin: auto;
+
+  background: #111;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr minmax(500px, 25%);
+
+  align-items: center;
+
+  padding: 10px;
+}
+
+.child {
+  background: #2a2a2a;
+  border: solid 2px #404040;
+
+  height: 95vh;
+  margin: 5px;
+}
+
+.game-area,
+.stats-area {
+  display: grid;
+  place-items: center;
+}
+
+.stats-area {
+  display: grid;
+
+  grid-template-rows: 50% 50%;
+}
+
+.stats-div {
+  border: solid 2px #404040;
+  display: grid;
+  place-items: center;
+}
+
+.snake-photo {
+  width: 60%;
+}
