@@ -1,12 +1,12 @@
 export class Snake {
-  gridValue = 1
-  coords = [{ y: 1, x: 1 }]
-  head = this.coords[0]
-  size = 2
-  direction = 'right'
-
   constructor(color = '#4090bf') {
     this.color = color
+    this.gridValue = 1
+    this.coords = [{ y: 1, x: 1 }]
+
+    this.head = this.coords[0]
+    this.size = 2
+    this.direction = 'right'
   }
 
   #movements = {
@@ -17,7 +17,7 @@ export class Snake {
     none: () => {},
   }
 
-  move(xLimit = 30, yLimit = 30) {
+  move(xLimit = 30, yLimit = xLimit) {
     this.coords.length = this.size
 
     for (let i = this.coords.length; i > 0; i--) {

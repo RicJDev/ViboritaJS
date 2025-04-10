@@ -1,9 +1,8 @@
 export class ObstaclesCollection {
-  gridValue = 0
-  coords = []
-
   constructor(color = '#d04090') {
     this.color = color
+    this.gridValue = 0
+    this.coords = []
   }
 
   addPoint({ x, y }) {

@@ -1,10 +1,10 @@
 export class Apple {
-  gridValue = 2
-  coords = { y: 0, x: 0 }
-  isGeneretable = true
-
   constructor(color = '#970') {
     this.color = color
+    this.gridValue = 2
+    this.coords = { y: 0, x: 0 }
+
+    this.isGeneretable = true
   }
 
   generate(x, y) {
