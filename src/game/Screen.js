@@ -16,10 +16,8 @@ export class Screen {
   update(...elements) {
     this.clear()
 
-    for (const element of elements) {
-      this.#context.fillStyle = element.color
-
-      const { coords } = element
+    for (const { coords, color } of elements) {
+      this.#context.fillStyle = color
 
       Array.isArray(coords)
         ? coords.forEach(({ x, y }) => this.#context.fillRect(x, y, 1, 1))
