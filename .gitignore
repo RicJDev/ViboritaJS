@@ -2,3 +2,4 @@
 **/.vscode
 **/ideas
 .gitignore
+*.d.ts

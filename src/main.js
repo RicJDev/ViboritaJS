@@ -1,26 +1,27 @@
-import { obstacles } from './obstacles.js'
-
 import { Apple } from './components/Apple.js'
 import { Snake } from './components/Snake.js'
+import { Level } from './game/Level.js'
 import { Screen } from './game/Screen.js'
-
-// import { Level } from './game/Level.js'
-
-
-// const level1 = new Level({
-//   snake: new Snake(),
-//   apple: new Apple(),
-//   obstacles: obstaclesLevels[0],
-// })
+import { obstacles } from './obstacles.js'
 
 const apple = new Apple()
 const snake = new Snake()
 
+const levels = Array.from({ length: obstacles.length }, (_, i) => {
+  return new Level({
+    apple: apple,
+    snake: snake,
+    obstacles: obstacles[i],
+  })
+})
+
 const screen = new Screen({
-  canvas: document.querySelector('canvas'),
   boardSize: 30,
   blockSize: 20,
+  canvas: document.querySelector('canvas'),
 })
+
+// ...
 
 const deathSFX = new Audio('./src/assets/deathEffect.ogg')
 deathSFX.playbackRate = 4
@@ -31,64 +32,66 @@ biteSFX.playbackRate = 6
 // ...
 
 let points = 0
-let currentLevel = 0
-
-const level = obstacles[currentLevel] || obstacles[0]
+let levelIndex = 0
+let currentLevel = levels.at(levelIndex) || levels.at(0)
 
 function checkLevel() {
   if (points == 3) {
-    currentLevel++
+    points = 0
+    levelIndex++
+
     snake.direction = 'right'
     snake.head.y = 1
     snake.head.x = 1
-    points = 0
     snake.size = 2
   }
 }
 
-// let [currentLevel] = levels
+// ...
 
-function generateApple(level) {
-  const { coords } = level
-  const { size } = screen
-
+/**
+ * @param {Level} param0
+ * @param {Screen} screen
+ */
+function generateApple({ obstacles, snake, apple }, xLimit = 30, yLimit = xLimit) {
   apple.isGeneretable = true
 
-  let x = Math.floor(Math.random() * size),
-    y = Math.floor(Math.random() * size)
+  let x = Math.floor(Math.random() * xLimit)
+  let y = Math.floor(Math.random() * yLimit)
 
-  while (coords.some((coord) => coord.x === x && coord.y === y)) {
-    x = Math.floor(Math.random() * size)
-    y = Math.floor(Math.random() * size)
+  while (
+    obstacles.coords.some((coord) => coord.x === x && coord.y === y) &&
+    snake.coords.some((coord) => coord.x === x && coord.y === y)
+  ) {
+    x = Math.floor(Math.random() * xLimit)
+    y = Math.floor(Math.random() * yLimit)
   }
 
   apple.generate(x, y)
 }
 
-function checkApple(level) {
-  const { head } = snake
-  const { coords } = apple
-
+/**
+ * @param {Level} param0
+ */
+function checkApple({ snake, apple, obstacles }) {
   const prevColor = snake.color
 
-  if (head.x === coords.x && head.y === coords.y) {
+  if (snake.head.x === apple.coords.x && snake.head.y === apple.coords.y) {
     biteSFX.currentTime = 0
     biteSFX.play()
 
     snake.color = '#7bfadf'
 
-    generateApple(level)
+    generateApple({ apple, snake, obstacles })
 
     snake.size++
     points++
 
-    setTimeout(() => {
-      snake.color = prevColor
-    }, 200)
+    setTimeout(() => (snake.color = prevColor), 200)
   }
 }
 
-// CONTROLS
+// ...
 
 const arrowInputs = {
   ArrowUp: 'up',
@@ -106,6 +109,9 @@ const wasdInputs = {
 
 // TODO: corregir funcionalidad para evitar colisiones por movimientos inesperados
 
+/**
+ * @param {KeyboardEvent} event
+ */
 function controls(event) {
   const prevDirection = snake.direction
 
@@ -118,32 +124,22 @@ function controls(event) {
 
 document.addEventListener('keydown', controls)
 
-function checkColisions(level) {
-  const { coords } = level,
-    { coords: body } = snake
+// ...
 
-  const death =
-    coords.some((value) => value.x === snake.head.x && value.y === snake.head.y) ||
-    body.some((value, index) => {
-      if (index !== 0) return value.x === snake.head.x && value.y === snake.head.y
+/**
+ * @param {Level} param0
+ */
 
-      return false
-    })
-
-  if (death) {
-    gameOver(level)
-  }
-}
-
-function gameOver(level) {
+function gameOver({ obstacles, snake, apple }, screen) {
   document.removeEventListener('keydown', controls)
   deathSFX.play()
 
+  screen.background = '#a22'
+
   snake.direction = 'none'
   snake.color = '#111'
-  screen.background = '#a22'
   snake.isAlive = false
-  level.color = '#111'
+  obstacles.color = '#111'
   apple.color = '#eee'
 
   setTimeout(() => {
@@ -151,22 +147,44 @@ function gameOver(level) {
   }, 400)
 }
 
+/**
+ * @param {Level} param0
+ */
+function checkColisions({ obstacles, snake, apple }, screen) {
+  const { head } = snake
+
+  const death =
+    obstacles.coords.some((coord) => coord.x === head.x && coord.y === head.y) ||
+    snake.coords.some((value, index) => {
+      if (index !== 0) {
+        return value.x === head.x && value.y === head.y
+      }
+
+      return false
+    })
+
+  if (death) {
+    gameOver({ obstacles, snake, apple }, screen)
+  }
+}
+
 const $recordPoints = document.querySelector('.record-points')
 const $currentLevel = document.querySelector('.current-level')
 
 function updateRecord() {
   $recordPoints.innerHTML = `Points: ${points}`
-  $currentLevel.innerHTML = `Level: ${currentLevel + 1}`
+  $currentLevel.innerHTML = `Level: ${levelIndex + 1}`
 }
 
-generateApple(level)
+generateApple(currentLevel)
 
 function main() {
-  screen.clear()
-  screen.update(obstacles.at(currentLevel) || obstacles.at(0), apple, snake)
+  currentLevel = levels.at(levelIndex) || levels.at(0)
+  screen.update(...currentLevel.elements)
 
-  checkColisions(obstacles.at(currentLevel) || obstacles.at(0))
-  checkApple(obstacles.at(currentLevel) || obstacles.at(0))
+  checkColisions(currentLevel, screen)
+
+  checkApple(currentLevel, screen)
 
   snake.move()
 

@@ -1,14 +1,9 @@
 export class Level {
-  #items
+  constructor({ apple, snake, obstacles }) {
+    this.apple = apple
+    this.snake = snake
+    this.obstacles = obstacles
 
-  constructor({ snake, apple, obstacles }) {
-    this.#items = [snake, apple, obstacles]
-    this.observers = []
-  }
-
-  update() {
-    for (const observer of this.observers) {
-      observer.update(...this.#items)
-    }
+    this.elements = [this.snake, this.apple, this.obstacles]
   }
 }

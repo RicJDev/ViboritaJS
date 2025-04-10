@@ -2,7 +2,7 @@ export class Screen {
   #canvas
   #context
 
-  constructor({ size = 30, block = 20, canvas = document.createElement('canvas') }) {
+  constructor({ size = 30, block = 20, canvas }) {
     this.size = size
     this.block = block
 
@@ -14,6 +14,8 @@ export class Screen {
   }
 
   update(...elements) {
+    this.clear()
+
     for (const element of elements) {
       this.#context.fillStyle = element.color
 
