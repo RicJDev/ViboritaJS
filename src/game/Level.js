@@ -4,6 +4,6 @@ export class Level {
     this.snake = snake
     this.obstacles = obstacles
 
-    this.elements = [this.snake, this.apple, this.obstacles]
+    this.elements = [this.obstacles, this.apple, this.snake]
   }
 }

@@ -53,21 +53,20 @@ function checkLevel() {
  * @param {Level} param0
  * @param {Screen} screen
  */
-function generateApple({ obstacles, snake, apple }, xLimit = 30, yLimit = xLimit) {
+function generateApple({ obstacles, snake, apple }) {
   apple.isGeneretable = true
 
-  let x = Math.floor(Math.random() * xLimit)
-  let y = Math.floor(Math.random() * yLimit)
+  apple.generate((x, y, limits) => {
+    while (
+      obstacles.coords.some((coord) => coord.x === x && coord.y === y) ||
+      snake.coords.some((coord) => coord.x === x && coord.y === y)
+    ) {
+      x = Math.floor(Math.random() * limits.x)
+      y = Math.floor(Math.random() * limits.y)
+    }
 
-  while (
-    obstacles.coords.some((coord) => coord.x === x && coord.y === y) &&
-    snake.coords.some((coord) => coord.x === x && coord.y === y)
-  ) {
-    x = Math.floor(Math.random() * xLimit)
-    y = Math.floor(Math.random() * yLimit)
-  }
-
-  apple.generate(x, y)
+    return { x, y }
+  })
 }
 
 /**
@@ -107,11 +106,6 @@ const wasdInputs = {
   d: 'right',
 }
 
-// TODO: corregir funcionalidad para evitar colisiones por movimientos inesperados
-
-/**
- * @param {KeyboardEvent} event
- */
 function controls(event) {
   const prevDirection = snake.direction
 
@@ -180,16 +174,15 @@ generateApple(currentLevel)
 
 function main() {
   currentLevel = levels.at(levelIndex) || levels.at(0)
+  checkLevel()
+
   screen.update(...currentLevel.elements)
 
-  checkColisions(currentLevel, screen)
-
   checkApple(currentLevel, screen)
+  checkColisions(currentLevel, screen)
+  updateRecord()
 
   snake.move()
-
-  updateRecord()
-  checkLevel()
 }
 
 setInterval(main, 1000 / 12)
