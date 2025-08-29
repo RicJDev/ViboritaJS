@@ -1,4 +1,4 @@
-import { ObstaclesCollection } from './components/ObstaclesCollection.js'
+import { ObstaclesCollection } from '../components/ObstaclesCollection.js'
 
 export const obstacles = [
   // Level 1
@@ -18,5 +18,5 @@ export const obstacles = [
     .addPoint({ x: 10, y: 10 })
     .addPoint({ x: 10, y: 20 })
     .addPoint({ x: 20, y: 20 })
-    .addPoint({ x: 20, y: 10 }),
+    .addPoint({ x: 20, y: 10 })
 ]
