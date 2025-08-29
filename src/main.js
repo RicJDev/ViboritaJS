@@ -2,7 +2,7 @@ import { Apple } from './components/Apple.js'
 import { Snake } from './components/Snake.js'
 import { Level } from './game/Level.js'
 import { Screen } from './game/Screen.js'
-import { obstacles } from './obstacles.js'
+import { obstacles } from './game/obstacles.js'
 
 const apple = new Apple()
 const snake = new Snake()
@@ -21,21 +21,17 @@ const screen = new Screen({
   canvas: document.querySelector('canvas'),
 })
 
-// ...
-
 const deathSFX = new Audio('./src/assets/deathEffect.ogg')
 deathSFX.playbackRate = 4
 const biteSFX = new Audio('./src/assets/appleBite.ogg')
 biteSFX.load()
 biteSFX.playbackRate = 6
 
-// ...
-
 let points = 0
 let levelIndex = 0
 let currentLevel = levels.at(levelIndex) || levels.at(0)
 
-function checkLevel() {
+function checkPoints() {
   if (points == 3) {
     points = 0
     levelIndex++
@@ -47,12 +43,6 @@ function checkLevel() {
   }
 }
 
-// ...
-
-/**
- * @param {Level} param0
- * @param {Screen} screen
- */
 function generateApple({ obstacles, snake, apple }) {
   apple.isGeneretable = true
 
@@ -69,9 +59,6 @@ function generateApple({ obstacles, snake, apple }) {
   })
 }
 
-/**
- * @param {Level} param0
- */
 function checkApple({ snake, apple, obstacles }) {
   const prevColor = snake.color
 
@@ -89,8 +76,6 @@ function checkApple({ snake, apple, obstacles }) {
     setTimeout(() => (snake.color = prevColor), 200)
   }
 }
-
-// ...
 
 const arrowInputs = {
   ArrowUp: 'up',
@@ -118,12 +103,6 @@ function controls(event) {
 
 document.addEventListener('keydown', controls)
 
-// ...
-
-/**
- * @param {Level} param0
- */
-
 function gameOver({ obstacles, snake, apple }, screen) {
   document.removeEventListener('keydown', controls)
   deathSFX.play()
@@ -141,9 +120,6 @@ function gameOver({ obstacles, snake, apple }, screen) {
   }, 400)
 }
 
-/**
- * @param {Level} param0
- */
 function checkColisions({ obstacles, snake, apple }, screen) {
   const { head } = snake
 
@@ -174,7 +150,7 @@ generateApple(currentLevel)
 
 function main() {
   currentLevel = levels.at(levelIndex) || levels.at(0)
-  checkLevel()
+  checkPoints()
 
   screen.update(...currentLevel.elements)
 
