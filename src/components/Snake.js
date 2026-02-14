@@ -46,7 +46,13 @@ export class Snake {
   }
 
   get oppositeDirection() {
-    const oppositesDirections = { up: 'down', down: 'up', left: 'right', right: 'left' }
+    const oppositesDirections = {
+      up: 'down',
+      down: 'up',
+      left: 'right',
+      right: 'left',
+    }
+
     return oppositesDirections[this.direction]
   }
 }
