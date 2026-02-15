@@ -83,7 +83,6 @@ Si deseas generar los archivos estáticos para desplegar en un servidor web:
 npm run build
 ```
 
-
 ## 🔄 Diagrama de flujo del juego
 
 El siguiente diagrama muestra la experiencia del usuario a través de la aplicación:
@@ -97,7 +96,7 @@ config:
     curve: linear
     padding: 30
     diagramPadding: 30
-    subGraphTitleMargin: 
+    subGraphTitleMargin:
         top: 10
         bottom: 0
 ---
