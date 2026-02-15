@@ -2,13 +2,11 @@
 
 ## 1. Título del proyecto
 
-_Ejemplo: Snake Game – 5 Niveles_
+**Viborita.js**
 
 ## 2. Objetivo general
 
-Describe con una frase qué se espera lograr con el proyecto.
-
-_Ejemplo: Desarrollar un juego de la viborita (Snake) jugable en el navegador, con cinco niveles de dificultad progresiva y un botón de inicio, utilizando JavaScript puro (sin librerías externas)._
+Desarrollar un juego de la viborita (Snake) jugable en el navegador, con cinco niveles de dificultad progresiva y un botón de inicio, utilizando JavaScript puro (sin librerías externas).
 
 ## 3. Objetivos específicos
 
@@ -22,7 +20,6 @@ Lista los objetivos concretos que se deben cumplir. Piensa en funcionalidades, c
 - Incluir un botón "Play" que inicie el juego (y posiblemente reinicie).
 - Mostrar puntuación y nivel actual.
 - Hacer el juego responsivo para diferentes tamaños de pantalla (opcional).
-- …
 
 ## 4. Alcance (funcionalidades incluidas y excluidas)
 
@@ -33,14 +30,12 @@ Define qué tendrá el juego y qué no, para evitar desviaciones.
 - Juego de una sola viborita controlada por teclado.
 - Cinco niveles seleccionables de forma automática o progresiva.
 - Pantalla de fin de juego con opción de reiniciar.
-- …
+- Efectos de sonido
 
 **No incluye:**
 
 - Modo multijugador.
 - Almacenamiento de puntuaciones en base de datos.
-- Efectos de sonido (si no se contemplan).
-- …
 
 ## 5. Requisitos técnicos
 
@@ -61,7 +56,6 @@ Define qué tendrá el juego y qué no, para evitar desviaciones.
 
 - No se permite el uso de librerías o frameworks (solo JavaScript vanilla).
 - El juego debe funcionar sin conexión a internet.
-- El tamaño total del proyecto no debe exceder X MB (opcional).
 
 ## 8. Usuarios objetivo
 
@@ -74,15 +68,21 @@ Define qué tendrá el juego y qué no, para evitar desviaciones.
 
 ## 10. Diseño / Interfaz
 
+_En desarrollo_
+
+<!--
 Describe brevemente cómo quieres que se vea (colores, estilo, tipografía). Puedes incluir un mockup si lo tienes.
 
 - Fondo oscuro, viborita de color verde, comida roja.
 - Botón "Play" grande y visible.
 - Marcadores de puntuación y nivel en la parte superior.
-- …
+-->
 
 ## 11. Detalle de los niveles
 
+_En desarrollo_
+
+<!--
 Para cada nivel, especifica las características que lo diferencian (puede ser una tabla).
 
 | Nivel | Tamaño del tablero | Velocidad (ms por paso) | Obstáculos      | Comida especial     | Condición para avanzar |
@@ -92,19 +92,16 @@ Para cada nivel, especifica las características que lo diferencian (puede ser u
 | 3     | 15x15              | 150                     | Paredes fijas   | No                  | Comer 10 alimentos     |
 | 4     | 15x15              | 120                     | Paredes fijas   | Sí (aparece cada 3) | Comer 12 alimentos     |
 | 5     | 20x20              | 100                     | Paredes móviles | Sí                  | Comer 15 alimentos     |
-
-_(Ajusta según tu idea)_
+-->
 
 ## 12. Comportamiento del juego (reglas)
 
-- La viborita no puede chocar contra las paredes (o sí, según la modalidad).
+- La viborita no puede chocar contra las paredes.
 - Al comer, la viborita crece y aumenta la puntuación.
 - Si choca contra sí misma o contra obstáculos, el juego termina.
 - Al completar un nivel, se pasa al siguiente automáticamente (o mediante un botón).
-- ...
 
 ## 13. Posibles ampliaciones futuras (opcional)
 
 - Añadir efectos visuales (partículas al comer).
 - Guardar la puntuación más alta en localStorage.
-- Más niveles o editor de niveles.

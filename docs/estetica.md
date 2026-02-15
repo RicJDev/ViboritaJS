@@ -2,8 +2,6 @@
 
 Esta guía define la estética **Cartoon-Style** basada en _Los Simpson_. La interfaz debe sentirse como un dibujo animado hecho a mano: con trazos definidos, colores saturados y una geometría ligeramente irregular.
 
----
-
 ## 🎨 Paleta de Colores (Variables CSS)
 
 Los colores deben aplicarse de forma plana (sin degradados complejos). Utiliza estas variables en tu archivo global de estilos:
@@ -17,8 +15,6 @@ Los colores deben aplicarse de forma plana (sin degradados complejos). Utiliza e
 | `--simpson-red`    | `#f54b4b` | Errores, alertas, botones de peligro.                 |
 | `--simpson-black`  | `#2d2d2d` | Trazos (borders), sombras y texto principal.          |
 | `--simpson-white`  | `#fef9e7` | Fondos de tarjetas y áreas de lectura.                |
-
----
 
 ## 🔤 Tipografía y Jerarquía
 
@@ -35,8 +31,6 @@ Para mantener la estética de cómic, utilizaremos fuentes de Google Fonts con a
 - **Fuente:** `Patrick Hand`.
 - **Estilo:** Legible pero con trazo manual.
 - **Tamaño base:** `16px` o `1.1rem`.
-
----
 
 ## 📐 Reglas de Composición UI
 
@@ -60,8 +54,6 @@ Evita las esquinas perfectamente cuadradas. Los personajes y edificios de la ser
 
 - **Border-radius:** `20px` a `30px` para contenedores.
 - **Botones:** Forma de cápsula (`50px`).
-
----
 
 ## 🧪 Implementación de Componentes
 
@@ -103,8 +95,6 @@ button.primary:active {
   box-shadow: 2px 2px 0 var(--simpson-black);
 }
 ```
-
----
 
 ## 💡 Notas Adicionales para Devs
 
