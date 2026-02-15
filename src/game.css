@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Patrick+Hand&display=swap');
+
+.patrick-hand-regular {
+  font-family: 'Patrick Hand', cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bangers-regular {
+  font-family: 'Bangers', system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --simpson-yellow: #fadf0b;
+  --simpson-yellow-light: #fcee8f;
+  --simpson-blue: #6fc3f0;
+  --simpson-blue-dark: #2a9df4;
+  --simpson-pink: #f5a9b8;
+  --simpson-purple: #c56cf0;
+  --simpson-green: #8cc084;
+  --simpson-orange: #f9a95a;
+  --simpson-red: #f54b4b;
+  --simpson-brown: #8b5a2b;
+  --simpson-black: #2d2d2d;
+  --simpson-white: #fef9e7;
+}

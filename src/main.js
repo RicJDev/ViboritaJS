@@ -1,4 +1,5 @@
-import "./index.css"
+import './game.css'
+import './index.css'
 
 function game() {
   // Aqui va el juego
