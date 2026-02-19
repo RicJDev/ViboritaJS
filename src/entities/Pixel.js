@@ -1,4 +1,4 @@
-export class Entity {
+export class Pixel {
   /**@type {string} */
   color
   /**@type {{x: number, y: number}} */
