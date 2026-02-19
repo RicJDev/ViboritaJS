@@ -3,5 +3,3 @@
 **/ideas
 .gitignore
 *.d.ts
-
-dist
