@@ -5,4 +5,13 @@ function game() {
   // Aqui va el juego
 }
 
-setInterval(game, 1000 / 12)
+/**@type {HTMLButtonElement} */
+const playButton = document.querySelector('.play-button')
+
+playButton.addEventListener('click', function () {
+  console.log('Juego iniciado!')
+
+  this.disabled = true
+
+  // setInterval(game, 1000 / 12)
+})

@@ -1,28 +1,128 @@
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Patrick+Hand&display=swap');
-
-.patrick-hand-regular {
-  font-family: 'Patrick Hand', cursive;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.bangers-regular {
-  font-family: 'Bangers', system-ui;
-  font-weight: 400;
-  font-style: normal;
-}
-
 :root {
-  --simpson-yellow: #fadf0b;
-  --simpson-yellow-light: #fcee8f;
-  --simpson-blue: #6fc3f0;
-  --simpson-blue-dark: #2a9df4;
-  --simpson-pink: #f5a9b8;
-  --simpson-purple: #c56cf0;
-  --simpson-green: #8cc084;
-  --simpson-orange: #f9a95a;
-  --simpson-red: #f54b4b;
-  --simpson-brown: #8b5a2b;
-  --simpson-black: #2d2d2d;
-  --simpson-white: #fef9e7;
+  --size-0: 1px;
+  --size-1: 4px;
+  --size-2: 8px;
+  --size-3: 12px;
+  --size-4: 16px;
+  --size-5: 24px;
+  --size-6: 32px;
+  --size-7: 48px;
+  --size-8: 64px;
+  --size-9: 96px;
+  --size-10: 128px;
+  --size-11: 192px;
+  --size-12: 256px;
+  --size-13: 384px;
+  --size-14: 512px;
+  --size-15: 640px;
+  --size-16: 768px;
+
+  --border-1: 2px;
+  --border-2: 4px;
+  --border-3: 8px;
+  --border-4: 12px;
+
+  --header-height: 96px;
+}
+
+.container {
+  background: black;
+  color: white;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: var(--header-height) auto;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: var(--size-16);
+  max-width: 90vw;
+  margin: auto;
+}
+
+.page-header {
+  background: lightgray;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  border: 2px solid white;
+  border-radius: 8px;
+  height: 450px;
+  width: 450px;
+  background: #001010;
+}
+
+.game-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.play-button {
+  border: 0;
+  border: white 2px solid;
+  font-size: larger;
+  border-radius: 12px;
+  background: black;
+  width: fit-content;
+  padding: var(--size-3);
+  transition: transform ease-in;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.play-button::after {
+  content: '';
+  position: absolute;
+  background: red;
+  left: 0;
+  bottom: -10px;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+
+  display: none;
+}
+
+.play-button:active {
+  transform: translateY(3px);
+}
+
+.status-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-indicator {
+  border: solid white 2px;
+  border-radius: 12px;
+  width: var(--size-10);
+  height: fit-content;
+  padding: var(--border-4);
+  text-align: center;
 }
