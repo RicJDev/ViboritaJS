@@ -7,15 +7,15 @@ export class Screen {
   /**
    * @param {HTMLCanvasElement} canvas
    * */
-  constructor(canvas, options = { size: 30, block: 15, background: '#001010' }) {
-    this.size = options.size
-    this.block = options.block
+  constructor(canvas, options = { side: 30, blockSize: 15, background: '#001010' }) {
+    this.side = options.side
+    this.blockSize = options.blockSize
     this.#canvas = canvas
     this.#canvas.style.background = options.background
-    this.#canvas.height = this.size * this.block
-    this.#canvas.width = this.size * this.block
+    this.#canvas.height = this.side * this.blockSize
+    this.#canvas.width = this.side * this.blockSize
     this.#context = this.#canvas.getContext('2d')
-    this.#context.scale(this.block, this.block)
+    this.#context.scale(this.blockSize, this.blockSize)
   }
 
   /**
