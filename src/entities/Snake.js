@@ -1,1 +1,5 @@
-export class Snake {}
+export class Snake {
+    constructor(direccion) {
+        this.direccion = direccion;
+    }
+}
