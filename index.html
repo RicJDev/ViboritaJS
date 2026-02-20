@@ -5,56 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Snake Game</title>
     <script type="module" src="src/main.js"></script>
-
-    <style>
-      body {
-        display: grid;
-        place-items: center;
-        background: var(--simpson-blue);
-        background-image: radial-gradient(white 2px, transparent 2px);
-        background-size: 30px 30px;
-      }
-
-      .content {
-        width: 90vw;
-        height: 90vh;
-        background-color: var(--simpson-yellow-light);
-        border: 4px solid var(--simpson-black);
-        border-radius: 40px;
-        padding: 2rem;
-        margin: 2rem;
-        box-shadow: 10px 10px 0 var(--simpson-black);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .content h2 {
-        font-size: 64px;
-        letter-spacing: -1px;
-        color: var(--simpson-brown);
-        text-align: center;
-      }
-
-      .content p {
-        max-width: 70ch;
-        font-size: 24px;
-      }
-    </style>
   </head>
   <body>
-    <main class="content">
-      <header>
-        <h2 class="bangers-regular">The Snakesons</h2>
+    <div class="container">
+      <header class="page-header">
+        <h2>Viborita JS</h2>
+        <p>A comer manzanas!</p>
       </header>
 
-      <article>
-        <p class="patrick-hand-regular">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias assumenda laborum maxime quam magnam
-          accusantium exercitationem amet sint, consequatur modi harum. Reprehenderit delectus a, fuga placeat sunt
-          necessitatibus ipsum cum?
-        </p>
-      </article>
-    </main>
+      <main class="game-container">
+        <aside class="status-bar">
+          <span class="status-indicator">
+            <h3>Points: 0</h3>
+          </span>
+
+          <span class="status-indicator">
+            <h3>Level: 0</h3>
+          </span>
+        </aside>
+
+        <div class="game-area">
+          <canvas class="game-board"></canvas>
+
+          <buttonc class="play-button">PLAY</buttonc>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

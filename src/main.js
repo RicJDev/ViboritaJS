@@ -1,8 +1,7 @@
-import './game.css'
+import './main.css'
 import './index.css'
+import { Screen } from './game/Screen'
+import { smiley } from './mock/smiley'
 
-function game() {
-  // Aqui va el juego
-}
-
-setInterval(game, 1000 / 12)
+const screen = new Screen(document.querySelector('.game-board'))
+screen.update(...smiley)
