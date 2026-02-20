@@ -43,12 +43,12 @@ export class Screen {
    * Actualiza la pantalla limpiándola y luego dibujando los elementos proporcionados.
    * Cada elemento se dibuja como un cuadrado relleno en sus coordenadas de cuadrícula.
    *
-   * @param {...Pixel} elements - Uno o más elementos para renderizar en la cuadrícula.
+   * @param {...Pixel} pixels - Uno o más elementos para renderizar en la cuadrícula.
    */
-  update(...elements) {
+  update(...pixels) {
     this.clear()
 
-    for (const { coords, color } of elements) {
+    for (const { coords, color } of pixels) {
       this.#context.fillStyle = color
       this.#context.fillRect(coords.x, coords.y, 1, 1)
     }

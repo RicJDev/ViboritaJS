@@ -67,7 +67,7 @@ Las coordenadas del píxel dentro de la cuadrícula.
     - [new exports.Screen(canvas, [options])](#new_module_Game.Screen_new)
     - [.background](#module_Game.Screen+background) ⇒ <code>string</code>
     - [.background](#module_Game.Screen+background)
-    - [.update(...elements)](#module_Game.Screen+update)
+    - [.update(...pixels)](#module_Game.Screen+update)
     - [.clear()](#module_Game.Screen+clear)
 
 <a name="module_Game.Screen"></a>
@@ -87,7 +87,7 @@ cuadrícula corresponda a una unidad de 1x1, simplificando la lógica de dibujo.
   - [new exports.Screen(canvas, [options])](#new_module_Game.Screen_new)
   - [.background](#module_Game.Screen+background) ⇒ <code>string</code>
   - [.background](#module_Game.Screen+background)
-  - [.update(...elements)](#module_Game.Screen+update)
+  - [.update(...pixels)](#module_Game.Screen+update)
   - [.clear()](#module_Game.Screen+clear)
 
 <a name="new_module_Game.Screen_new"></a>
@@ -126,16 +126,16 @@ Establece el color de fondo del canvas.
 
 <a name="module_Game.Screen+update"></a>
 
-#### screen.update(...elements)
+#### screen.update(...pixels)
 
 Actualiza la pantalla limpiándola y luego dibujando los elementos proporcionados.
 Cada elemento se dibuja como un cuadrado relleno en sus coordenadas de cuadrícula.
 
 **Kind**: instance method of [<code>Screen</code>](#module_Game.Screen)
 
-| Param       | Type               | Description                                           |
-| ----------- | ------------------ | ----------------------------------------------------- |
-| ...elements | <code>Pixel</code> | Uno o más elementos para renderizar en la cuadrícula. |
+| Param     | Type               | Description                                           |
+| --------- | ------------------ | ----------------------------------------------------- |
+| ...pixels | <code>Pixel</code> | Uno o más elementos para renderizar en la cuadrícula. |
 
 <a name="module_Game.Screen+clear"></a>
 
