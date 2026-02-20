@@ -4,6 +4,14 @@
 
 import { Pixel } from '../entities/Pixel'
 
+/**
+ * Screen
+ *
+ * Gestiona una pantalla de canvas basada en cuadrícula para renderizar elementos del juego.
+ * La pantalla se divide en una cuadrícula cuadrada donde cada celda tiene un tamaño fijo.
+ * El renderizado se realiza escalando el contexto del canvas para que cada celda de la
+ * cuadrícula corresponda a una unidad de 1x1, simplificando la lógica de dibujo.
+ */
 export class Screen {
   /** @private @type {HTMLCanvasElement} */
   #canvas
