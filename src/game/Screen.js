@@ -1,3 +1,6 @@
+/**
+ * @typedef {{coords: {x: number, y: number}, color: string}} Pixel
+ * */
 export class Screen {
   /**@type {HTMLCanvasElement} */
   #canvas
@@ -18,20 +21,22 @@ export class Screen {
     this.#context.scale(this.blockSize, this.blockSize)
   }
 
-  /**
-   * @param {...{coords: {x: number, y: number}, color: string}} elements
-   * */
-  update(...elements) {
-    this.clear()
+  clear() {
+    this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height)
+  }
 
-    for (const { coords, color } of elements) {
+  /** @param {...Pixel} pixels */
+  draw(...pixels) {
+    for (const { coords, color } of pixels) {
       this.#context.fillStyle = color
       this.#context.fillRect(coords.x, coords.y, 1, 1)
     }
   }
 
-  clear() {
-    this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height)
+  /** @param {...Pixel} pixels */
+  update(...pixels) {
+    this.clear()
+    this.draw(...pixels)
   }
 
   get background() {
