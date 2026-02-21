@@ -19,6 +19,8 @@ const arrowInputs = {
   ArrowLeft: 'left',
 }
 
+// Controls stuff
+
 const opposites = {
   up: 'down',
   down: 'up',
@@ -37,6 +39,8 @@ document.addEventListener('keydown', (event) => {
   }
 })
 
+// Physics stuff
+
 function updatePhysics() {
   smiley.forEach((pixel) => {
     if (direction === 'up') pixel.coords.y--
@@ -53,11 +57,17 @@ function updatePhysics() {
   lastProcessedDirection = direction
 }
 
+// Game loop
+
 const MAX_FPS = 12
 const FRAME_INTERVAL_MS = 1000 / MAX_FPS
 let previousTimeMs = 0
 
+let inGame
+
 function gameLoop() {
+  if (!inGame) return
+
   requestAnimationFrame((currentTimeMs) => {
     screen.update(...smiley)
 
@@ -71,5 +81,24 @@ function gameLoop() {
   })
 }
 
-gameLoop()
+// Start and end
 
+function start() {
+  alert('El juego va a empezar')
+  inGame = true
+  gameLoop()
+}
+
+function end() {
+  inGame = false
+}
+
+const playButton = document.querySelector('.play-button')
+playButton.addEventListener('click', () => {
+  if (inGame) {
+    end()
+    return
+  }
+
+  start()
+})
