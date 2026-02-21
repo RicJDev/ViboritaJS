@@ -124,3 +124,22 @@ canvas {
   padding: var(--border-4);
   text-align: center;
 }
+
+@media (width <= 790px) {
+  .game-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .status-bar {
+    flex-direction: row;
+    height: var(--size-7);
+  }
+
+  .status-indicator {
+    width: var(--size-9);
+    padding: 0;
+    font-size: small;
+  }
+}
