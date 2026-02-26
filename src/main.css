@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
+@font-face {
+  font-family: 'SimpsonFont';
+  src: local('SimpsonFont'), url('./assets/fonts/Simpsonfont.ttf');
+}
+
+@font-face {
+  font-family: 'akbar';
+  src: local('akbar') url('./assets/fonts/akbar.ttf');
+}
+
 :root {
   --text: #22262a;
   --background: #f9fafb;
@@ -44,14 +54,7 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  font-family:
-    'Fredoka One',
-    cursive,
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
+  font-family: 'SimpsonFont';
   background-color: var(--background);
   color: var(--text);
 }
@@ -123,7 +126,7 @@ h6 {
 
 .page-header h2 {
   font-size: inherit;
-  text-transform: uppercase;
+  font-weight: 700;
 }
 
 /* Área del juego */
@@ -133,15 +136,6 @@ h6 {
   justify-content: center;
   align-items: center;
   gap: var(--size-4);
-}
-
-/* Canvas (tablero) */
-.game-board {
-  border: var(--border-3) solid var(--text);
-  border-radius: var(--size-4);
-  background: #d4eaff; /* celeste claro */
-  max-width: 70vw;
-  box-shadow: var(--size-2) var(--size-2) 0 var(--primary);
 }
 
 /* Barra de estado */
@@ -157,7 +151,7 @@ h6 {
   background: var(--secondary);
   border: solid var(--text) var(--border-2);
   border-radius: var(--size-6);
-  width: var(--size-9);
+  width: var(--size-10);
   text-align: center;
   padding: var(--size-1) 0;
   font-size: 1rem;
@@ -172,10 +166,21 @@ h6 {
   text-shadow: 2px 2px 0 var(--primary);
 }
 
+/* Canvas (tablero) */
+.game-board {
+  position: relative;
+  border: var(--border-3) solid var(--text);
+  border-radius: var(--size-4);
+  background: #d4eaff; /* celeste claro */
+  max-width: 70vw;
+  box-shadow: var(--size-2) var(--size-2) 0 var(--primary);
+}
+
 /* Botón PLAY */
 .play-button {
   position: absolute;
   inset: 0;
+  z-index: 10;
   margin: auto;
   border: var(--border-3) solid var(--text);
   background: var(--secondary);
