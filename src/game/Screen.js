@@ -7,7 +7,7 @@ export class Screen {
   /**
    * @param {HTMLCanvasElement} canvas
    * */
-  constructor(canvas, options = { side: 30, blockSize: 15, background: '#001010' }) {
+  constructor(canvas, options = { side: 30, blockSize: 15, background: 'var(--primary)' }) {
     this.side = options.side
     this.blockSize = options.blockSize
     this.#canvas = canvas
