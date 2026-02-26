@@ -6,11 +6,11 @@
 ![HTML5](https://img.shields.io/badge/HTML5-%23E34F26.svg)
 ![CSS3](https://img.shields.io/badge/CSS3-%231572B6.svg)
 
-Un juego clásico de la viborita (Snake) desarrollado con JavaScript puro, sin dependencias externas, pero con el entorno de desarrollo moderno de Vite. Incluye cinco niveles de dificultad progresiva, un botón de inicio y una experiencia de juego fluida directamente en el navegador.
+Un juego clásico de la viborita (Snake) desarrollado con JavaScript puro, sin dependencias externas, pero con el entorno de desarrollo moderno de Vite.
 
 ## 📖 Descripción
 
-Revive la nostalgia del Snake con este juego minimalista pero desafiante. Controla una serpiente que crece al comer comida, evita chocar contra las paredes, tu propio cuerpo y los obstáculos. Con cinco niveles cuidadosamente diseñados, la dificultad aumenta gradualmente para mantener el interés. Ideal para jugar rápidamente desde cualquier navegador moderno.
+Revive la nostalgia del Snake con este juego minimalista pero desafiante. Controla una serpiente que crece al comer comida, evita chocar contra las paredes, tu propio cuerpo y los obstáculos. Ideal para jugar rápidamente desde cualquier navegador moderno.
 
 ## ✨ Características
 
@@ -54,7 +54,7 @@ _En desarrollo_
 ### Requisitos previos
 
 - [Node.js](https://nodejs.org/) (versión 14 o superior)
-- npm (incluido con Node.js) o yarn
+- Un administrador de paquetes como npm (incluido con Node.js) o pnpm o yarn
 
 ### Pasos
 
