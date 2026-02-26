@@ -48,14 +48,10 @@ Crea una nueva instancia de Pixel.
 
 #### pixel.color : <code>string</code>
 
-El color del píxel en formato CSS (por ejemplo, '#ff0000', 'red').
-
 **Kind**: instance property of [<code>Pixel</code>](#module_Entities.Pixel)  
 <a name="module_Entities.Pixel+coords"></a>
 
 #### pixel.coords : <code>Object</code>
-
-Las coordenadas del píxel dentro de la cuadrícula.
 
 **Kind**: instance property of [<code>Pixel</code>](#module_Entities.Pixel)  
 <a name="module_Game"></a>
@@ -67,8 +63,9 @@ Las coordenadas del píxel dentro de la cuadrícula.
     - [new exports.Screen(canvas, [options])](#new_module_Game.Screen_new)
     - [.background](#module_Game.Screen+background) ⇒ <code>string</code>
     - [.background](#module_Game.Screen+background)
-    - [.update(...pixels)](#module_Game.Screen+update)
     - [.clear()](#module_Game.Screen+clear)
+    - [.draw(...pixels)](#module_Game.Screen+draw)
+    - [.update(...pixels)](#module_Game.Screen+update)
 
 <a name="module_Game.Screen"></a>
 
@@ -87,8 +84,9 @@ cuadrícula corresponda a una unidad de 1x1, simplificando la lógica de dibujo.
   - [new exports.Screen(canvas, [options])](#new_module_Game.Screen_new)
   - [.background](#module_Game.Screen+background) ⇒ <code>string</code>
   - [.background](#module_Game.Screen+background)
-  - [.update(...pixels)](#module_Game.Screen+update)
   - [.clear()](#module_Game.Screen+clear)
+  - [.draw(...pixels)](#module_Game.Screen+draw)
+  - [.update(...pixels)](#module_Game.Screen+update)
 
 <a name="new_module_Game.Screen_new"></a>
 
@@ -96,13 +94,13 @@ cuadrícula corresponda a una unidad de 1x1, simplificando la lógica de dibujo.
 
 Crea una nueva instancia de Screen.
 
-| Param                | Type                           | Default                                      | Description                                                                      |
-| -------------------- | ------------------------------ | -------------------------------------------- | -------------------------------------------------------------------------------- |
-| canvas               | <code>HTMLCanvasElement</code> |                                              | El elemento canvas al que se adjuntará la pantalla.                              |
-| [options]            | <code>Object</code>            |                                              | Opciones de configuración.                                                       |
-| [options.side]       | <code>number</code>            | <code>30</code>                              | Número de celdas de la cuadrícula por lado (crea una cuadrícula de lado x lado). |
-| [options.blockSize]  | <code>number</code>            | <code>15</code>                              | Tamaño de cada celda de la cuadrícula en píxeles.                                |
-| [options.background] | <code>string</code>            | <code>&quot;&#x27;#001010&#x27;&quot;</code> | Color de fondo CSS del canvas.                                                   |
+| Param                | Type                           | Default                                             | Description                                                                      |
+| -------------------- | ------------------------------ | --------------------------------------------------- | -------------------------------------------------------------------------------- |
+| canvas               | <code>HTMLCanvasElement</code> |                                                     | El elemento canvas al que se adjuntará la pantalla.                              |
+| [options]            | <code>Object</code>            |                                                     | Opciones de configuración.                                                       |
+| [options.side]       | <code>number</code>            | <code>30</code>                                     | Número de celdas de la cuadrícula por lado (crea una cuadrícula de lado x lado). |
+| [options.blockSize]  | <code>number</code>            | <code>15</code>                                     | Tamaño de cada celda de la cuadrícula en píxeles.                                |
+| [options.background] | <code>string</code>            | <code>&quot;&#x27;var(--primary)&#x27;&quot;</code> | Color de fondo CSS del canvas.                                                   |
 
 <a name="module_Game.Screen+background"></a>
 
@@ -124,6 +122,24 @@ Establece el color de fondo del canvas.
 | ---------- | ------------------- | ---------------------------- |
 | background | <code>string</code> | El nuevo color de fondo CSS. |
 
+<a name="module_Game.Screen+clear"></a>
+
+#### screen.clear()
+
+Limpia todo el canvas, eliminando todo el contenido dibujado.
+El color de fondo permanece sin cambios.
+
+**Kind**: instance method of [<code>Screen</code>](#module_Game.Screen)  
+<a name="module_Game.Screen+draw"></a>
+
+#### screen.draw(...pixels)
+
+**Kind**: instance method of [<code>Screen</code>](#module_Game.Screen)
+
+| Param     | Type               |
+| --------- | ------------------ |
+| ...pixels | <code>Pixel</code> |
+
 <a name="module_Game.Screen+update"></a>
 
 #### screen.update(...pixels)
@@ -136,12 +152,3 @@ Cada elemento se dibuja como un cuadrado relleno en sus coordenadas de cuadrícu
 | Param     | Type               | Description                                           |
 | --------- | ------------------ | ----------------------------------------------------- |
 | ...pixels | <code>Pixel</code> | Uno o más elementos para renderizar en la cuadrícula. |
-
-<a name="module_Game.Screen+clear"></a>
-
-#### screen.clear()
-
-Limpia todo el canvas, eliminando todo el contenido dibujado.
-El color de fondo permanece sin cambios.
-
-**Kind**: instance method of [<code>Screen</code>](#module_Game.Screen)
