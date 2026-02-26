@@ -30,7 +30,7 @@ _En desarrollo_
 
 _En desarrollo_
 
-<!-- 
+<!--
 1. Inicia el servidor de desarrollo (ver instrucciones abajo).
 2. Abre la URL que Vite te proporcione (normalmente `http://localhost:5173`).
 3. Haz clic en el botón **Play** para comenzar.
