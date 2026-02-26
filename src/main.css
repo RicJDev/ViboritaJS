@@ -1,4 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+
+@font-face {
+  font-family: "SimpsonFont";
+  src: local("SimpsonFont"), url("./assets/fonts/Simpsonfont.ttf");
+}
+
+@font-face {
+  font-family: "akbar";
+  src: local("akbar") url("./assets/fonts/akbar.ttf");
+}
+
 :root {
+  --text: #22262a;
+  --background: #f9fafb;
+  --primary: #60b2e1;
+  --secondary: #fadc14;
+  --accent: #f44ed5;
+
   --size-0: 1px;
   --size-1: 4px;
   --size-2: 8px;
@@ -21,106 +39,177 @@
   --border-2: 4px;
   --border-3: 8px;
   --border-4: 12px;
-
-  --header-height: 96px;
 }
 
-.container {
-  background: black;
-  color: white;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
+* {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: "SimpsonFont";
+  background-color: var(--background);
+  color: var(--text);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* Contenedor principal */
+.container {
   min-height: 100vh;
   display: grid;
-  grid-template-rows: var(--header-height) auto;
+  place-items: center;
+  background: linear-gradient(145deg, var(--background) 0%, #fff2c0 100%);
+  padding: var(--size-3);
 }
 
-.game-container {
-  display: grid;
-  grid-template-columns: auto auto;
-  width: var(--size-16);
-  max-width: 90vw;
-  margin: auto;
-}
-
+/* Cabecera estilo viñeta */
 .page-header {
-  background: lightgray;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  top: var(--size-3);
+  left: var(--size-3);
+  width: fit-content;
+  height: fit-content;
+  padding: var(--size-2) var(--size-4);
+  background: var(--accent);
+  border-radius: 30px 30px 30px 0;
+  border: solid var(--text) var(--border-2);
+  box-shadow: var(--size-1) var(--size-1) 0 var(--text);
+  transform: rotate(-1deg);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  color: var(--text);
 }
 
-canvas {
-  border: 2px solid white;
-  border-radius: 8px;
-  background: #001010;
+.page-header h2 {
+  font-size: inherit;
+  font-weight: 700;
 }
 
+/* Área del juego */
 .game-area {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: var(--size-4);
 }
 
-.play-button {
-  border: 0;
-  border: white 2px solid;
-  font-size: larger;
-  border-radius: 12px;
-  background: black;
-  width: fit-content;
-  padding: var(--size-3);
-  transition: transform ease-in;
-  user-select: none;
-  cursor: pointer;
-  position: relative;
-}
-
-.play-button::after {
-  content: "";
-  position: absolute;
-  background: red;
-  left: 0;
-  bottom: -10px;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-
-  display: none;
-}
-
-.play-button:active {
-  transform: translateY(3px);
-}
-
+/* Barra de estado */
 .status-bar {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: var(--size-4);
+  flex-wrap: wrap;
 }
 
 .status-indicator {
-  border: solid white 2px;
-  border-radius: 12px;
+  background: var(--secondary);
+  border: solid var(--text) var(--border-2);
+  border-radius: var(--size-6);
   width: var(--size-10);
-  height: fit-content;
-  padding: var(--border-4);
   text-align: center;
+  padding: var(--size-1) 0;
+  font-size: 1rem;
+  box-shadow: var(--size-1) var(--size-1) 0 var(--primary);
+  transition: transform 0.1s ease;
+}
+
+.status-indicator h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--text);
+  text-shadow: 2px 2px 0 var(--primary);
+}
+
+/* Canvas (tablero) */
+.game-board {
+  position: relative;
+  border: var(--border-3) solid var(--text);
+  border-radius: var(--size-4);
+  background: #d4eaff; /* celeste claro */
+  max-width: 70vw;
+  box-shadow: var(--size-2) var(--size-2) 0 var(--primary);
+}
+
+/* Botón PLAY */
+.play-button {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  margin: auto;
+  border: var(--border-3) solid var(--text);
+  background: var(--secondary);
+  font-size: 4rem;
+  border-radius: var(--size-8);
+  width: fit-content;
+  height: fit-content;
+  padding: var(--size-3) var(--size-6);
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+  color: var(--text);
+  text-shadow: 4px 4px 0 var(--primary);
+  box-shadow:
+    var(--size-2) var(--size-2) 0 var(--accent),
+    var(--size-3) var(--size-3) 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease;
+  line-height: 1;
+}
+
+.play-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow:
+    var(--size-4) var(--size-4) 0 var(--accent),
+    var(--size-2) var(--size-2) 0 rgba(0, 0, 0, 0.1);
+  background: #ffe955; /* un amarillo más brillante */
+}
+
+.play-button:active {
+  transform: translate(4px, 4px);
+  box-shadow: var(--size-1) var(--size-1) 0 var(--accent);
 }
