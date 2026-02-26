@@ -7,13 +7,14 @@
     <script type="module" src="src/main.js"></script>
   </head>
   <body>
-    <div class="container">
-      <header class="page-header">
-        <h2>Viborita JS</h2>
-        <p>A comer manzanas!</p>
-      </header>
+    <header class="page-header">
+      <h2>Viborita JS</h2>
+    </header>
 
-      <main class="game-container">
+    <main class="container">
+      <div class="game-area">
+        <canvas class="game-board"></canvas>
+
         <aside class="status-bar">
           <span class="status-indicator">
             <h3>Points: 0</h3>
@@ -23,13 +24,9 @@
             <h3>Level: 0</h3>
           </span>
         </aside>
+      </div>
+    </main>
 
-        <div class="game-area">
-          <canvas class="game-board"></canvas>
-
-          <buttonc class="play-button">PLAY</buttonc>
-        </div>
-      </main>
-    </div>
+    <button class="play-button">PLAY</button>
   </body>
 </html>

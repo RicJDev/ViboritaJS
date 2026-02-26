@@ -89,16 +89,10 @@ function start() {
   gameLoop()
 }
 
-function end() {
-  inGame = false
-}
 
 const playButton = document.querySelector('.play-button')
 playButton.addEventListener('click', () => {
-  if (inGame) {
-    end()
-    return
-  }
-
   start()
+  playButton.style.display = 'none'
+  
 })
