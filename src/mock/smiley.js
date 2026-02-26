@@ -1,4 +1,4 @@
-const color = '#ff00f1'
+const color = "#ff00f1";
 
 export const smiley = [
   { coords: { x: 15, y: 2 }, color },
@@ -11,4 +11,4 @@ export const smiley = [
   { coords: { x: 12, y: 6 }, color },
   { coords: { x: 11, y: 6 }, color },
   { coords: { x: 10, y: 6 }, color },
-]
+];

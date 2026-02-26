@@ -1,8 +1,8 @@
 export class Pixel {
   /**@type {string} */
-  color
+  color;
   /**@type {{x: number, y: number}} */
-  coords = { x, y }
+  coords = { x, y };
 
   /**
    *
@@ -10,7 +10,7 @@ export class Pixel {
    * @param {{x: number, y: number}} coords
    */
   constructor(color, coords) {
-    this.color = color
-    this.coords = coords
+    this.color = color;
+    this.coords = coords;
   }
 }
