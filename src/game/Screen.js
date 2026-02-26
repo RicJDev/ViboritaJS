@@ -26,9 +26,9 @@ export class Screen {
    * @param {Object} [options] - Opciones de configuración.
    * @param {number} [options.side=30] - Número de celdas de la cuadrícula por lado (crea una cuadrícula de lado x lado).
    * @param {number} [options.blockSize=15] - Tamaño de cada celda de la cuadrícula en píxeles.
-   * @param {string} [options.background='#001010'] - Color de fondo CSS del canvas.
+   * @param {string} [options.background='var(--primary)'] - Color de fondo CSS del canvas.
    */
-  constructor(canvas, options = { side: 30, blockSize: 15, background: "#001010" }) {
+  constructor(canvas, options = { side: 30, blockSize: 15, background: "var(--primary)" }) {
     this.side = options.side;
     this.blockSize = options.blockSize;
     this.#canvas = canvas;
